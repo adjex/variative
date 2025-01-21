@@ -1,0 +1,10 @@
+(A&B)|(C&D) == (A&B)|(C&D) : A & B & C & D
+(A&B)|(C&D) == (C&D)|(A&B) : A & B & C & D
+A&B|C&D == C&D|A&B : A & B & C & D
+(A|B)&(C|D) == (A|B)&(C|D) : A & B & C & D
+(A|B)&(C|D) == (C|D)&(A|B) : A & B & C & D
+A|B&C|D != C|D&A|B : A & B & C & D
+C <= A&B : C implements A,B
+A&B <= (A&B)|C : A & B & C
+!A >= B|C : A & B & C
+!A >= B&C : A & B & C

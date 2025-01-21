@@ -1,0 +1,45 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "lint",
+			"type": "composer",
+			"command": "run-script",
+			"args": [
+				"lint"
+			]
+		},
+		{
+			"label": "pretty",
+			"type": "composer",
+			"command": "run-script",
+			"args": [
+				"pretty"
+			]
+		},
+		{
+			"label": "analyze",
+			"type": "composer",
+			"command": "run-script",
+			"args": [
+				"analyze"
+			]
+		},
+		{
+			"label": "test",
+			"type": "composer",
+			"command": "run-script",
+			"args": [
+				"test"
+			]
+		},
+		{
+			"label": "compat",
+			"type": "composer",
+			"command": "run-script",
+			"args": [
+				"compat"
+			]
+		}
+	]
+}

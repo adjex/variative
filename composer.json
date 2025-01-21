@@ -1,0 +1,43 @@
+{
+	"name": "adjex/variative",
+	"type": "library",
+	"license": "MIT",
+	"require": {
+		"php": ">=8.0",
+		"psr/log": "^3.0"
+	},
+	"require-dev": {
+		"phpstan/phpstan": "^1.12",
+		"phpstan/phpstan-strict-rules": "^1.6",
+		"phpstan/phpstan-phpunit": "^1.4",
+		"phpstan/extension-installer": "^1.4",
+		"squizlabs/php_codesniffer": "^3.10",
+		"phpcompatibility/php-compatibility": "^9.3",
+		"slevomat/coding-standard": "^8.15",
+		"phan/phan": "^5.4",
+		"phpunit/phpunit": "^9.6"
+	},
+	"autoload": {
+		"psr-4": {
+			"Variative\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Variative\\Test\\": "test/"
+		}
+	},
+	"config": {
+		"allow-plugins": {
+			"phpstan/extension-installer": true,
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
+	},
+	"scripts": {
+		"lint": "phpcs -ps --colors",
+		"pretty": "phpcbf -p --colors",
+		"analyze": "phpstan analyse -v",
+		"compat": "phan --allow-polyfill-parser --color --config-file phan.config.php",
+		"test": "phpunit"
+	}
+}

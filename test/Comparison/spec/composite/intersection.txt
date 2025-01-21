@@ -1,0 +1,7 @@
+A&B <= C : A implements C
+A <= B&C : A implements B,C
+A&B&C <= A&B : A & B & C
+C&D <= A&B : C extends A & D extends B
+A&B >= A&B&C : A & B & C
+A&B >= C&D : C extends A & D extends B
+A&B&C&D == A&B&C&D : A & B & C & D

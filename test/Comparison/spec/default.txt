@@ -1,0 +1,6 @@
+ == mixed|void : {"return": true}
+ == object|array|resource|string|int|float|bool|callable|null|void : {"return": true}
+mixed|bool == mixed|null
+bool|bool == bool
+(bool|int)|string == bool|(int|string)
+ == mixed : {"return": false}

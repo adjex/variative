@@ -1,0 +1,5 @@
+bool == bool
+string == string
+self == stdClass : {"self": "stdClass"}
+B <= A : B implements A
+A == A : A

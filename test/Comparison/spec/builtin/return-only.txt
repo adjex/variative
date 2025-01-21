@@ -1,0 +1,7 @@
+never == never
+never <= bool
+never <= float
+never <= int
+never <= string
+never <= array
+never <= object
