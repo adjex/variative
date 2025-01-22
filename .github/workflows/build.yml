@@ -1,16 +1,12 @@
 name: Build
 on:
   push:
-    branches:
-      - main
-      - release
-      - develop
   pull_request:
 
 jobs:
   lint:
     runs-on: ubuntu-latest
-    name: Verify Style / Syntax
+    name: Coding Standards
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -24,34 +20,28 @@ jobs:
         run: composer lint
   analyze:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        php: ['8.0', '8.1', '8.2', '8.3']
-    name: Static Analysis - PHP v${{ matrix.php }}
+    name: Static Analysis
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php }}
+          php-version: '8.0'
       - name: Install Dependencies
         run: composer install --no-interaction
       - name: Run PHPStan
         run: composer analyze
   compat:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        php: ['8.0', '8.1', '8.2', '8.3']
-    name: Compatibility Check - PHP v${{ matrix.php }}
+    name: Compatibility Check
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php }}
+          php-version: '8.3'
       - name: Install Dependencies
         run: composer install --no-interaction
       - name: Run Phan

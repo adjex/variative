@@ -9,8 +9,8 @@ use Phan\Issue;
  */
 return [
 
-	'target_php_version' => '8.2',
-
+	'minimum_target_php_version' => '8.0',
+	
 	'directory_list' => [
 		'src',
 		'test',
