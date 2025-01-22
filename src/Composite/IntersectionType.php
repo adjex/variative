@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace Variative\Composite;
 
-use Variative\Type;
 use Variative\Common\AtomicType;
+use Variative\Type;
 
 class IntersectionType extends CompositeType {
 

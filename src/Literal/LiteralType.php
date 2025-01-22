@@ -11,9 +11,9 @@ declare(strict_types=1);
 
 namespace Variative\Literal;
 
-use Variative\Type;
 use Variative\Common\BuiltInType;
 use Variative\Scalar\ScalarType;
+use Variative\Type;
 
 abstract class LiteralType extends BuiltInType {
 

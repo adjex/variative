@@ -11,9 +11,9 @@ declare(strict_types=1);
 
 namespace Variative\Alias;
 
-use Variative\Type;
 use Variative\Composite\UnionType;
 use Variative\Special\NullType;
+use Variative\Type;
 
 class NullableType extends UnionType {
 

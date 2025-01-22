@@ -241,28 +241,9 @@ abstract class Type implements Stringable {
 		}
 
 		self::$loggers[$logger] = true;
-
-		/*
-		if(is_null(self::$loggers)) {
-			self::$loggers = new WeakMap();
-			self::$loggers[$logger] = true;
-		} else {
-			self::$loggers[$logger] = true;
-		}
-		*/
-
-		/*
-		//if(is_null(self::$loggers)) {
-		if(!self::$loggers instanceof WeakMap) {
-			self::$loggers = new WeakMap();
-		}
-
-		self::$loggers[$logger] = true;
-		*/
 	}
 
 	final public static function detachLogger(LoggerInterface $logger): void {
-		//if(is_null(self::$loggers)) {
 		if (!isset(self::$loggers)) {
 			return;
 		}
@@ -358,7 +339,6 @@ abstract class Type implements Stringable {
 	 * @return void
 	 */
 	private static function log(string $level, string|Stringable $message, array $context = []): void {
-		//if(is_null(self::$loggers)) {
 		if (!isset(self::$loggers)) {
 			return;
 		}

@@ -14,13 +14,13 @@ namespace Variative\Alias;
 use Variative\Composite\UnionType;
 use Variative\Compound\ArrayType;
 use Variative\Compound\ObjectType;
-use Variative\Special\ResourceType;
 use Variative\Special\CallableType;
+use Variative\Special\NullType;
+use Variative\Special\ResourceType;
 use Variative\Scalar\BooleanType;
 use Variative\Scalar\FloatType;
 use Variative\Scalar\IntegerType;
 use Variative\Scalar\StringType;
-use Variative\Special\NullType;
 
 class MixedType extends UnionType {
 

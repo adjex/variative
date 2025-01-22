@@ -13,8 +13,8 @@ namespace Variative\UserDefined;
 
 use Variative\Common\AtomicType;
 use Variative\Compound\ObjectType;
-use Variative\Type;
 use Variative\Exception\ComparisonException;
+use Variative\Type;
 
 class UserDefinedType extends AtomicType {
 	private string $class;
