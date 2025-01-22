@@ -1,8 +1,4 @@
 {
 	"phpunit.phpunit": "./vendor/bin/phpunit",
-	"php.problems.exclude": {
-		"/testing/**": true,
-		"/tools/**": true
-	},
-	"php.version": "v8.2"
+	"php.version": "v8.3"
 }
