@@ -16,6 +16,8 @@ use Variative\Type;
 
 /**
  * Abstract Base Type
+ *
+ * @internal
  */
 abstract class BaseType extends Type {
 
