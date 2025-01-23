@@ -48,6 +48,12 @@
 		</properties>
 	</rule>
 
+	<!-- All files MUST have a docblock -->
+	<rule ref="Squiz.Commenting.FileComment">
+		<exclude name="Squiz.Commenting.FileComment.SpacingAfterOpen" />
+		<exclude name="Squiz.Commenting.FileComment.MissingPackageTag" />
+	</rule>
+
 	<file>src/</file>
 	<file>test/</file>
 </ruleset>
