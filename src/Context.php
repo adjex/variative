@@ -12,6 +12,8 @@ declare(strict_types=1);
 namespace Variative;
 
 /**
+ * Context
+ *
  * @phpstan-type ContextArray array{
  *     self?:   class-string,
  *     static?: class-string,
@@ -23,25 +25,27 @@ namespace Variative;
  */
 class Context {
 
-	/** @var ?class-string $self */
+	/** @var class-string|null $self */
 	private ?string $self;
 
-	/** @var ?class-string $static */
+	/** @var class-string|null $static */
 	private ?string $static;
 
-	/** @var ?class-string $parent */
+	/** @var class-string|null $parent */
 	private ?string $parent;
 
 	/** @var bool $return */
 	private bool $return;
 
 	/**
-	 * @param ?class-string $self
-	 * @param ?class-string $static
-	 * @param ?class-string $parent
-	 * @param bool          $return
+	 * Create a new context.
+	 *
+	 * @param class-string|null $self   Context self classname (or null if undefined).
+	 * @param class-string|null $static Context static classname (or null if undefined).
+	 * @param class-string|null $parent Context parent classname (or null if undefined).
+	 * @param boolean           $return True if in a return context, false otherwise.
 	 */
-	public function __construct(?string $self = null, ?string $static = null, ?string $parent = null, $return = false) {
+	public function __construct(?string $self = null, ?string $static = null, ?string $parent = null, bool $return = false) {
 		$this->self = $self;
 		$this->static = $static;
 		$this->parent = $parent;
@@ -49,6 +53,10 @@ class Context {
 	}
 
 	/**
+	 * Check if context defines self.
+	 *
+	 * @return boolean True if self is defined.
+	 *
 	 * @phpstan-assert-if-true class-string $this->getSelfClass()
 	 */
 	public function hasSelfClass(): bool {
@@ -56,6 +64,10 @@ class Context {
 	}
 
 	/**
+	 * Check if context defines static.
+	 *
+	 * @return boolean True if static is defined.
+	 *
 	 * @phpstan-assert-if-true class-string $this->getStaticClass()
 	 */
 	public function hasStaticClass(): bool {
@@ -63,6 +75,10 @@ class Context {
 	}
 
 	/**
+	 * Check if context defines parent.
+	 *
+	 * @return boolean True if parent is defined.
+	 *
 	 * @phpstan-assert-if-true class-string $this->getParentClass()
 	 */
 	public function hasParentClass(): bool {
@@ -70,28 +86,36 @@ class Context {
 	}
 
 	/**
-	 * @return ?class-string
+	 * Get self from context.
+	 *
+	 * @return class-string|null Self class or null if undefined.
 	 */
 	public function getSelfClass(): ?string {
 		return $this->self;
 	}
 
 	/**
-	 * @return ?class-string
+	 * Get static from context.
+	 *
+	 * @return class-string|null Static class or null if undefined.
 	 */
 	public function getStaticClass(): ?string {
 		return $this->static;
 	}
 
 	/**
-	 * @return ?class-string
+	 * Get parent from context.
+	 *
+	 * @return class-string|null Parent class or null if undefined.
 	 */
 	public function getParentClass(): ?string {
 		return $this->parent;
 	}
 
 	/**
-	 * @return bool
+	 * Check if context is a return.
+	 *
+	 * @return boolean True if in a return context.
 	 */
 	public function isReturn(): bool {
 		return $this->return;
@@ -128,7 +152,11 @@ class Context {
 	}
 
 	/**
-	 * @param ContextArray|null $input
+	 * Create a new context.
+	 *
+	 * @param ContextArray|null $input Context array (or null).
+	 *
+	 * @return self The context.
 	 */
 	public static function create(array|null $input = null): self {
 		if (is_array($input)) {
@@ -139,9 +167,11 @@ class Context {
 	}
 
 	/**
-	 * @param ContextArray $input
+	 * Create context from array.
 	 *
-	 * @return self
+	 * @param ContextArray $input Context array.
+	 *
+	 * @return self The context.
 	 */
 	public static function fromArray(array $input): self {
 		$self = null;
@@ -172,6 +202,11 @@ class Context {
 		);
 	}
 
+	/**
+	 * Create a default (null) context.
+	 *
+	 * @return Context The default context.
+	 */
 	public static function default(): self {
 		return new self();
 	}

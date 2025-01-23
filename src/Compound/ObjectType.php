@@ -11,12 +11,21 @@ declare(strict_types=1);
 
 namespace Variative\Compound;
 
+/**
+ * Object Type
+ */
 class ObjectType extends CompoundType {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function getName(): string {
 		return 'object';
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function acceptsValue(mixed $value, bool $strict = true): bool {
 		return is_object($value);
 	}

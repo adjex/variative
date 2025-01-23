@@ -13,8 +13,14 @@ namespace Variative\Scalar;
 
 use Variative\Common\BuiltInType;
 
+/**
+ * Abstract Scalar Type
+ */
 abstract class ScalarType extends BuiltInType {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function isScalar(): bool {
 		return true;
 	}

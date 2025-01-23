@@ -15,8 +15,14 @@ use Variative\Common\BuiltInType;
 use Variative\Scalar\ScalarType;
 use Variative\Type;
 
+/**
+ * Abstract Literal Type
+ */
 abstract class LiteralType extends BuiltInType {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	protected function diffWith(Type $other): ?int {
 		if ($other instanceof LiteralType) {
 			if ($this->getValue() === $other->getValue()) {
@@ -37,12 +43,23 @@ abstract class LiteralType extends BuiltInType {
 		return parent::diffWith($other);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function isLiteral(): bool {
 		return true;
 	}
 
+	/**
+	 * Get the literal value.
+	 *
+	 * @return mixed The value.
+	 */
 	abstract public function getValue(): mixed;
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function acceptsValue(mixed $value, bool $strict = true): bool {
 		if ($strict) {
 			return ($value === $this->getValue());

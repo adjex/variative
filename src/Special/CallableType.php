@@ -11,12 +11,21 @@ declare(strict_types=1);
 
 namespace Variative\Special;
 
+/**
+ * Callable Type
+ */
 class CallableType extends SpecialType {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function getName(): string {
 		return 'callable';
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function acceptsValue(mixed $value, bool $strict = false): bool {
 		return is_callable($value);
 	}

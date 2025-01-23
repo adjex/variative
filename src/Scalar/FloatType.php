@@ -11,12 +11,21 @@ declare(strict_types=1);
 
 namespace Variative\Scalar;
 
+/**
+ * Float Type
+ */
 class FloatType extends ScalarType {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function getName(): string {
 		return 'float';
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function acceptsValue(mixed $value, bool $strict = true): bool {
 		if ($strict) {
 			// under strict_types floats DO accept ints

@@ -13,8 +13,14 @@ namespace Variative\Compound;
 
 use Variative\Common\BuiltInType;
 
+/**
+ * Abstract Compound Type
+ */
 abstract class CompoundType extends BuiltInType {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function isCompound(): bool {
 		return true;
 	}

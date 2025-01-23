@@ -23,6 +23,8 @@ use Stringable;
 use WeakMap;
 
 /**
+ * Abstract Type
+ *
  * @phpstan-import-type ContextArray from Context
  */
 abstract class Type implements Stringable {
@@ -36,12 +38,14 @@ abstract class Type implements Stringable {
 	protected const INVARIANT     = null;
 
 	/**
-	 * @param ReflectionType|string|null $input
-	 * @param Context|ContextArray|null  $context
+	 * Create a new type.
 	 *
-	 * @return self
+	 * @param ReflectionType|string|null $input   Reflection object or string.
+	 * @param Context|ContextArray|null  $context Context data.
 	 *
-	 * @throws ParseException
+	 * @return self The resulting type.
+	 *
+	 * @throws ParseException If unable to parse the type.
 	 */
 	final public static function create(ReflectionType|string|null $input, Context|array|null $context = null): self {
 		if ($input instanceof ReflectionType) {
@@ -56,14 +60,16 @@ abstract class Type implements Stringable {
 	}
 
 	/**
-	 * @param ReflectionType            $reflector
-	 * @param Context|ContextArray|null $context
+	 * Create a new type from reflection.
 	 *
-	 * @return self
+	 * @param ReflectionType            $reflector Reflection object.
+	 * @param Context|ContextArray|null $context   Context data.
 	 *
-	 * @throws ParseException
+	 * @return self The resulting type.
+	 *
+	 * @throws ParseException If unable to parse the type.
 	 */
-	public static function fromReflector(ReflectionType $reflector, Context|array|null $context = null): self {
+	final public static function fromReflector(ReflectionType $reflector, Context|array|null $context = null): self {
 		if (!$context instanceof Context) {
 			$context = Context::create($context);
 		}
@@ -72,14 +78,16 @@ abstract class Type implements Stringable {
 	}
 
 	/**
-	 * @param string                    $string
-	 * @param Context|ContextArray|null $context
+	 * Create a new type from string.
 	 *
-	 * @return self
+	 * @param string                    $string  Type string.
+	 * @param Context|ContextArray|null $context Context data.
 	 *
-	 * @throws ParseException
+	 * @return self The resulting type.
+	 *
+	 * @throws ParseException If unable to parse the type.
 	 */
-	public static function fromString(string $string, Context|array|null $context = null): self {
+	final public static function fromString(string $string, Context|array|null $context = null): self {
 		if (!$context instanceof Context) {
 			$context = Context::create($context);
 		}
@@ -88,27 +96,13 @@ abstract class Type implements Stringable {
 	}
 
 	/**
-	 * @param mixed                     $value
-	 * @param Context|ContextArray|null $context
+	 * Create default type from context.
 	 *
-	 * @return self
+	 * @param Context|ContextArray|null $context Context to use.
 	 *
-	 * @throws ParseException
+	 * @return self The default type.
 	 */
-	public static function fromValue(mixed $value, Context|array|null $context = null): self {
-		if (!$context instanceof Context) {
-			$context = Context::create($context);
-		}
-
-		return Parser::parse(gettype($value), $context);
-	}
-
-	/**
-	 * @param Context|ContextArray|null $context
-	 *
-	 * @return self
-	 */
-	public static function default(Context|array|null $context = null): self {
+	final public static function default(Context|array|null $context = null): self {
 		if (!$context instanceof Context) {
 			$context = Context::create($context);
 		}
@@ -121,12 +115,19 @@ abstract class Type implements Stringable {
 	}
 
 	/**
-	 * @param self $left
-	 * @param self $right
+	 * Compare two types.
 	 *
-	 * @return ?int
+	 * Compares $left with $right.
+	 *
+	 * @param self $left  Left type.
+	 * @param self $right Right type.
+	 *
+	 * @return ?int Less than zero if $left is covariant to $right.
+	 *              Greater than zero if $left is contravariant to $right.
+	 *              Zero if types are bivariant to each other.
+	 *              Null if types are invariant to each other.
 	 */
-	public static function compare(Type $left, Type $right): ?int {
+	final public static function compare(Type $left, Type $right): ?int {
 		$debug = [];
 
 		self::debug(sprintf(
@@ -243,6 +244,13 @@ abstract class Type implements Stringable {
 		return 'bivariant';
 	}
 
+	/**
+	 * Attach a logger.
+	 *
+	 * @param LoggerInterface $logger The logger to attach.
+	 *
+	 * @return void
+	 */
 	final public static function attachLogger(LoggerInterface $logger): void {
 		if (!isset(self::$loggers)) {
 			self::$loggers = new WeakMap();
@@ -251,6 +259,13 @@ abstract class Type implements Stringable {
 		self::$loggers[$logger] = true;
 	}
 
+	/**
+	 * Detach a logger.
+	 *
+	 * @param LoggerInterface $logger The logger to detach.
+	 *
+	 * @return void
+	 */
 	final public static function detachLogger(LoggerInterface $logger): void {
 		if (!isset(self::$loggers)) {
 			return;
@@ -260,8 +275,10 @@ abstract class Type implements Stringable {
 	}
 
 	/**
-	 * @param string|Stringable $message
-	 * @param mixed[]           $context
+	 * Log an emergency event.
+	 *
+	 * @param string|Stringable $message The event message.
+	 * @param mixed[]           $context The event context.
 	 *
 	 * @return void
 	 */
@@ -270,8 +287,10 @@ abstract class Type implements Stringable {
 	}
 
 	/**
-	 * @param string|Stringable $message
-	 * @param mixed[]           $context
+	 * Log an alert event.
+	 *
+	 * @param string|Stringable $message The event message.
+	 * @param mixed[]           $context The event context.
 	 *
 	 * @return void
 	 */
@@ -280,8 +299,10 @@ abstract class Type implements Stringable {
 	}
 
 	/**
-	 * @param string|Stringable $message
-	 * @param mixed[]           $context
+	 * Log a critical event.
+	 *
+	 * @param string|Stringable $message The event message.
+	 * @param mixed[]           $context The event context.
 	 *
 	 * @return void
 	 */
@@ -290,8 +311,10 @@ abstract class Type implements Stringable {
 	}
 
 	/**
-	 * @param string|Stringable $message
-	 * @param mixed[]           $context
+	 * Log an error event.
+	 *
+	 * @param string|Stringable $message The event message.
+	 * @param mixed[]           $context The event context.
 	 *
 	 * @return void
 	 */
@@ -300,8 +323,10 @@ abstract class Type implements Stringable {
 	}
 
 	/**
-	 * @param string|Stringable $message
-	 * @param mixed[]           $context
+	 * Log a warning event.
+	 *
+	 * @param string|Stringable $message The event message.
+	 * @param mixed[]           $context The event context.
 	 *
 	 * @return void
 	 */
@@ -310,8 +335,10 @@ abstract class Type implements Stringable {
 	}
 
 	/**
-	 * @param string|Stringable $message
-	 * @param mixed[]           $context
+	 * Log a notice event.
+	 *
+	 * @param string|Stringable $message The event message.
+	 * @param mixed[]           $context The event context.
 	 *
 	 * @return void
 	 */
@@ -320,8 +347,10 @@ abstract class Type implements Stringable {
 	}
 
 	/**
-	 * @param string|Stringable $message
-	 * @param mixed[]           $context
+	 * Log an info event.
+	 *
+	 * @param string|Stringable $message The event message.
+	 * @param mixed[]           $context The event context.
 	 *
 	 * @return void
 	 */
@@ -330,8 +359,10 @@ abstract class Type implements Stringable {
 	}
 
 	/**
-	 * @param string|Stringable $message
-	 * @param mixed[]           $context
+	 * Log a debug event.
+	 *
+	 * @param string|Stringable $message The event message.
+	 * @param mixed[]           $context The event context.
 	 *
 	 * @return void
 	 */
@@ -370,84 +401,84 @@ abstract class Type implements Stringable {
 	/**
 	 * Check if type is a built-in.
 	 *
-	 * @return bool True if type is built-in.
+	 * @return boolean True if type is built-in.
 	 */
 	abstract public function isBuiltIn(): bool;
 
 	/**
 	 * Check if type is scalar (bool, int, float, string).
 	 *
-	 * @return bool True if type is scalar.
+	 * @return boolean True if type is scalar.
 	 */
 	abstract public function isScalar(): bool;
 
 	/**
 	 * Check if type is compond (array, object, callable).
 	 *
-	 * @return bool True if type is compound.
+	 * @return boolean True if type is compound.
 	 */
 	abstract public function isCompound(): bool;
 
 	/**
 	 * Check if type is special (null, resource).
 	 *
-	 * @return bool True if type is special.
+	 * @return boolean True if type is special.
 	 */
 	abstract public function isSpecial(): bool;
 
 	/**
 	 * Check if type is return-only (void, never).
 	 *
-	 * @return bool True if type is return-only.
+	 * @return boolean True if type is return-only.
 	 */
 	abstract public function isReturnOnly(): bool;
 
 	/**
 	 * Check if type is literal.
 	 *
-	 * @return bool True if type is literal.
+	 * @return boolean True if type is literal.
 	 */
 	abstract public function isLiteral(): bool;
 
 	/**
 	 * Check if type is a class.
 	 *
-	 * @return bool True if type is a class.
+	 * @return boolean True if type is a class.
 	 */
 	abstract public function isClass(): bool;
 
 	/**
 	 * Check if type is user-defined.
 	 *
-	 * @return bool True if type is user-defined.
+	 * @return boolean True if type is user-defined.
 	 */
 	abstract public function isUserDefined(): bool;
 
 	/**
 	 * Check if type is relative.
 	 *
-	 * @return bool True if type is relative.
+	 * @return boolean True if type is relative.
 	 */
 	abstract public function isRelative(): bool;
 
 	/**
 	 * Check if type is internal.
 	 *
-	 * @return bool True if type is internal.
+	 * @return boolean True if type is internal.
 	 */
 	abstract public function isInternal(): bool;
 
 	/**
 	 * Check if type is alias (mixed, iterable, etc).
 	 *
-	 * @return bool True if type is alias.
+	 * @return boolean True if type is alias.
 	 */
 	abstract public function isAlias(): bool;
 
 	/**
 	 * Check if type is a composite type (union or intersection).
 	 *
-	 * @return bool True if type is a composite type.
+	 * @return boolean True if type is a composite type.
 	 */
 	abstract public function isComposite(): bool;
 
@@ -463,39 +494,42 @@ abstract class Type implements Stringable {
 
 
 	/**
-	 * @param self $other
+	 * Calculate differene WITH another type.
 	 *
-	 * @return ?int
+	 * @param self $other The type to compare with.
 	 *
-	 * @throws ComparisonException
+	 * @return ?int Less than zero if $this is covariant to $other.
+	 *              Greater than zero if $this is contravariant to $other.
+	 *              Zero if types are bivariant to each other.
+	 *              Null if types are invariant to each other.
+	 *
+	 * @throws ComparisonException If unable to compare types.
 	 */
-	protected function diffWith(self $other): ?int {
-		throw new ComparisonException(sprintf(
-			'Logic does not exist for calculating the difference of %s with %s.',
-			$this::class,
-			$other::class,
-		));
-	}
+	abstract protected function diffWith(self $other): ?int;
 
 	/**
-	 * @param self $other
+	 * Calculate difference FROM another type.
 	 *
-	 * @return ?int
+	 * @param self $other The type to compare from.
 	 *
-	 * @throws ComparisonException
+	 * @return ?int Less than zero if $other is covariant to $this.
+	 *              Greater than zero if $other is contravariant to $other.
+	 *              Zero if types are bivariant to each other.
+	 *              Null if types are invariant to each other.
+	 *
+	 * @throws ComparisonException If unable to compare types.
 	 */
-	protected function diffFrom(self $other): ?int {
-		throw new ComparisonException(sprintf(
-			'Logic does not exist for calculating the difference of %s from %s.',
-			$this::class,
-			$other::class,
-		));
-	}
+	abstract protected function diffFrom(self $other): ?int;
 
 	/**
-	 * @param self $other
+	 * Compare type to another type.
 	 *
-	 * @return ?int
+	 * @param self $other The type to compare to.
+	 *
+	 * @return ?int Less than zero if $this is covariant to $other.
+	 *              Greater than zero if $this is contravariant to $other.
+	 *              Zero if types are bivariant to each other.
+	 *              Null if types are invariant to each other.
 	 */
 	final public function compareTo(self $other): ?int {
 		return self::compare($this, $other);

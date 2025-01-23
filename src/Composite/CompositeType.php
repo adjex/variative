@@ -14,6 +14,9 @@ namespace Variative\Composite;
 use Variative\Common\BaseType;
 use Variative\Type;
 
+/**
+ * Abstract Composite Type
+ */
 abstract class CompositeType extends BaseType {
 
 	protected const SPLICE = '';
@@ -23,6 +26,12 @@ abstract class CompositeType extends BaseType {
 	/** @var array<Type> */
 	private array $types = [];
 
+	/**
+	 * Create a new composite type.
+	 *
+	 * @param Type $type     Main type.
+	 * @param Type ...$types Additional types.
+	 */
 	public function __construct(Type $type, Type ...$types) {
 		$this->addType($type);
 
@@ -31,10 +40,14 @@ abstract class CompositeType extends BaseType {
 		}
 	}
 
+
 	private function addType(Type $type): void {
 		$this->types[] = $type;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function isReturnOnly(): bool {
 		foreach ($this->types as $type) {
 			if ($type->isReturnOnly()) {
@@ -45,17 +58,25 @@ abstract class CompositeType extends BaseType {
 		return false;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function isComposite(): bool {
 		return true;
 	}
 
 	/**
-	 * @return array<Type>
+	 * Return all composite subtypes.
+	 *
+	 * @return array<Type> List of subtypes.
 	 */
 	public function getTypes(): array {
 		return $this->types;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function getName(): string {
 		$types = [];
 

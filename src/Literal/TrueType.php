@@ -11,12 +11,21 @@ declare(strict_types=1);
 
 namespace Variative\Literal;
 
+/**
+ * True Type
+ */
 class TrueType extends LiteralType {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function getName(): string {
 		return 'true';
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function getValue(): bool {
 		return true;
 	}

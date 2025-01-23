@@ -13,8 +13,14 @@ namespace Variative\Common;
 
 use Variative\Type;
 
+/**
+ * Abstract Built-In Type
+ */
 abstract class BuiltInType extends AtomicType {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	protected function diffWith(Type $other): ?int {
 		if ($other::class == static::class) {
 			return self::BIVARIANT;
@@ -23,6 +29,9 @@ abstract class BuiltInType extends AtomicType {
 		return parent::diffWith($other);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function isBuiltIn(): bool {
 		return true;
 	}

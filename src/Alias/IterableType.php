@@ -16,8 +16,14 @@ use Variative\Compound\ArrayType;
 use Variative\UserDefined\UserDefinedType;
 use Traversable;
 
+/**
+ * Iterable Type
+ */
 class IterableType extends UnionType {
 
+	/**
+	 * Create a new iterable type.
+	 */
 	public function __construct() {
 		parent::__construct(
 			new ArrayType(),
@@ -25,10 +31,16 @@ class IterableType extends UnionType {
 		);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function getName(): string {
 		return 'iterable';
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function isAlias(): bool {
 		return true;
 	}

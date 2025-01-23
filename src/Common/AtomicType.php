@@ -11,6 +11,9 @@ declare(strict_types=1);
 
 namespace Variative\Common;
 
+/**
+ * Abstract Atomic Type
+ */
 abstract class AtomicType extends BaseType {
 
 }

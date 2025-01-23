@@ -13,6 +13,9 @@ namespace Variative\Exception;
 
 use InvalidArgumentException;
 
+/**
+ * Parse Exception
+ */
 class ParseException extends InvalidArgumentException {
 
 }

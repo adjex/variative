@@ -60,12 +60,14 @@ class Parser {
 	}
 
 	/**
-	 * @param string                    $input
-	 * @param Context|ContextArray|null $context
+	 * Parse a string type.
 	 *
-	 * @return Type
+	 * @param string                    $input   The string to parse.
+	 * @param Context|ContextArray|null $context The context to parse within.
 	 *
-	 * @throws ParseException
+	 * @return Type The parsed type.
+	 *
+	 * @throws ParseException If unable to parse the provided input.
 	 */
 	public static function parse(string $input, Context|array|null $context = null): Type {
 		if (!$context instanceof Context) {

@@ -54,6 +54,20 @@
 		<exclude name="Squiz.Commenting.FileComment.MissingPackageTag" />
 	</rule>
 
+	<!-- All classes MUST be have a docblock -->
+	<rule ref="Squiz.Commenting.ClassComment">
+		<exclude name="Squiz.Commenting.ClassComment.TagNotAllowed" />
+	</rule>
+
+	<!-- All functions declared public or protected MUST be have a docblock -->
+	<rule ref="Squiz.Commenting.FunctionComment">
+		<exclude name="Squiz.Commenting.FunctionComment.IncorrectTypeHint" />
+		<properties>
+			<property name="minimumVisibility" value="protected" />
+			<property name="skipIfInheritdoc" value="true" />
+		</properties>
+	</rule>
+
 	<file>src/</file>
 	<file>test/</file>
 </ruleset>

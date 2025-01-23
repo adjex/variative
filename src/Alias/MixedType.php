@@ -22,8 +22,14 @@ use Variative\Scalar\FloatType;
 use Variative\Scalar\IntegerType;
 use Variative\Scalar\StringType;
 
+/**
+ * Mixed Type
+ */
 class MixedType extends UnionType {
 
+	/**
+	 * Create a new mixed type.
+	 */
 	public function __construct() {
 		parent::__construct(
 			new ObjectType(),
@@ -38,10 +44,16 @@ class MixedType extends UnionType {
 		);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function getName(): string {
 		return 'mixed';
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function isAlias(): bool {
 		return true;
 	}

@@ -17,9 +17,16 @@ use Psr\Log\LogLevel;
 use Psr\Log\AbstractLogger;
 use Stringable;
 
+/**
+ * Abstract Test Case
+ */
 abstract class TestCase extends BaseTestCase {
 
-
+	/**
+	 * Mark test as incomplete.
+	 *
+	 * @return void
+	 */
 	protected function toDo(): void {
 		$caller = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[1];
 
@@ -31,6 +38,11 @@ abstract class TestCase extends BaseTestCase {
 		self::markTestIncomplete($message);
 	}
 
+	/**
+	 * Check for verbose mode.
+	 *
+	 * @return boolean True if verbose flag is set.
+	 */
 	protected function isVerbose(): bool {
 		if (self::isDebug()) {
 			return true;
@@ -43,6 +55,11 @@ abstract class TestCase extends BaseTestCase {
 		return false;
 	}
 
+	/**
+	 * Check for debug mode.
+	 *
+	 * @return boolean True if debug flag is set.
+	 */
 	protected function isDebug(): bool {
 		if (in_array('--debug', $_SERVER['argv'], true)) {
 			return true;
@@ -52,8 +69,10 @@ abstract class TestCase extends BaseTestCase {
 	}
 
 	/**
-	 * @param ?string[] $messages;
-	 * @param string    $level;
+	 * Create a simple logger.
+	 *
+	 * @param string[]|null $messages Optional reference to an array to store messages in.
+	 * @param string        $level    Log level (from LogLevel).
 	 *
 	 * @return LoggerInterface
 	 */
@@ -67,8 +86,10 @@ abstract class TestCase extends BaseTestCase {
 			private int $level;
 
 			/**
-			 * @param ?string[] $messages
-			 * @param string    $level
+			 * Create a new logger.
+			 *
+			 * @param string[]|null $messages Array reference to store message in.
+			 * @param string        $level    Log level.
 			 */
 			public function __construct(?array &$messages, string $level = LogLevel::DEBUG) {
 				if (is_null($messages)) {
@@ -79,12 +100,17 @@ abstract class TestCase extends BaseTestCase {
 			}
 
 			/**
+			 * Get the messages.
+			 *
 			 * @return string[] $messages
 			 */
 			public function messages(): array {
 				return $this->messages;
 			}
 
+			/**
+			 * {@inheritDoc}
+			 */
 			public function log(mixed $level, string|Stringable $message, array $context = []): void {
 				if (!is_string($level)) {
 					return;

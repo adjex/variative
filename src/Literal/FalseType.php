@@ -11,12 +11,21 @@ declare(strict_types=1);
 
 namespace Variative\Literal;
 
+/**
+ * False Type
+ */
 class FalseType extends LiteralType {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function getName(): string {
 		return 'false';
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function getValue(): bool {
 		return false;
 	}

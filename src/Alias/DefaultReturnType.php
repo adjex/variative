@@ -14,8 +14,14 @@ namespace Variative\Alias;
 use Variative\Composite\UnionType;
 use Variative\ReturnOnly\VoidType;
 
+/**
+ * Default Return Type
+ */
 class DefaultReturnType extends UnionType {
 
+	/**
+	 * Create a new default return type.
+	 */
 	public function __construct() {
 		parent::__construct(
 			new MixedType(),
@@ -23,10 +29,16 @@ class DefaultReturnType extends UnionType {
 		);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function getName(): string {
 		return '[mixed|void]';
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function isAlias(): bool {
 		// this is arguable, it's not an official 'alias' type
 		return true;

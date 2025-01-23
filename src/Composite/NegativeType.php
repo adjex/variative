@@ -14,16 +14,27 @@ namespace Variative\Composite;
 use Variative\Common\AtomicType;
 use Variative\Type;
 
+/**
+ * Negative Type
+ */
 class NegativeType extends CompositeType {
 
 	protected const SPLICE = '';
 	protected const PREFIX = '!';
 	protected const SUFFIX = '';
 
+	/**
+	 * Create a new negative type.
+	 *
+	 * @param Type $type Type to negate.
+	 */
 	public function __construct(Type $type) {
 		parent::__construct($type);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	protected function diffWith(Type $other): ?int {
 		if ($other instanceof self) {
 			// $this is a subtype of $other if it's composite type is a subtype
@@ -68,11 +79,17 @@ class NegativeType extends CompositeType {
 		return parent::diffWith($other);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function isReturnOnly(): bool {
 		// unlike other composite types, negative types can NEVER be return-only
 		return false;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function acceptsValue(mixed $value, bool $strict = true): bool {
 		// not sure this works, pretty vague for negative types
 		// !bool shouldn't accept a boolean value

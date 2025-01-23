@@ -13,8 +13,14 @@ namespace Variative\Special;
 
 use Variative\Common\BuiltInType;
 
+/**
+ * Abstract Special Type
+ */
 abstract class SpecialType extends BuiltInType {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function isSpecial(): bool {
 		return true;
 	}

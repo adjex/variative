@@ -18,12 +18,12 @@ if (!function_exists('Variative\type')) {
 	/**
 	 * Helper for creating a type object.
 	 *
-	 * @param ReflectionType|string|null                                                                           $input
-	 * @param array{self?: class-string, static?: class-string, parent?: class-string, return?: bool}|null $context
+	 * @param ReflectionType|string|null                                                                   $input   Type source.
+	 * @param array{self?: class-string, static?: class-string, parent?: class-string, return?: bool}|null $context Context data.
 	 *
-	 * @return Type
+	 * @return Type The type.
 	 *
-	 * @throws ParseException
+	 * @throws ParseException If a parse error occurs.
 	 */
 	function type(ReflectionType|string|null $input, Context|array|null $context = null): Type {
 		return Type::create($input, $context);
@@ -34,9 +34,9 @@ if (!function_exists('Variative\context')) {
 	/**
 	 * Helper for creating a context object.
 	 *
-	 * @param array{self?: class-string, static?: class-string, parent?: class-string, return?: bool}|null $input
+	 * @param array{self?: class-string, static?: class-string, parent?: class-string, return?: bool}|null $input Context data.
 	 *
-	 * @return Context
+	 * @return Context The context.
 	 */
 	function context(array|null $input): Context {
 		return Context::create($input);

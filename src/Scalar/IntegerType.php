@@ -11,12 +11,21 @@ declare(strict_types=1);
 
 namespace Variative\Scalar;
 
+/**
+ * Integer Type
+ */
 class IntegerType extends ScalarType {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function getName(): string {
 		return 'int';
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function acceptsValue(mixed $value, bool $strict = true): bool {
 		if ($strict) {
 			return is_int($value);

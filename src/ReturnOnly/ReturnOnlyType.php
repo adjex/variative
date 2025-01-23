@@ -13,12 +13,21 @@ namespace Variative\ReturnOnly;
 
 use Variative\Special\SpecialType;
 
+/**
+ * Abstract Return-Only Type
+ */
 abstract class ReturnOnlyType extends SpecialType {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function isReturnOnly(): bool {
 		return true;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function acceptsValue(mixed $value, bool $strict = true): bool {
 		return false;
 	}

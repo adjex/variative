@@ -11,12 +11,21 @@ declare(strict_types=1);
 
 namespace Variative\Special;
 
+/**
+ * Resource Type
+ */
 class ResourceType extends SpecialType {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function getName(): string {
 		return 'resource';
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function acceptsValue(mixed $value, bool $strict = false): bool {
 		return is_resource($value);
 	}

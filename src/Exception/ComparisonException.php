@@ -13,6 +13,9 @@ namespace Variative\Exception;
 
 use RuntimeException;
 
+/**
+ * Comparison Exception
+ */
 class ComparisonException extends RuntimeException {
 
 }

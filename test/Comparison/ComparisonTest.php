@@ -20,9 +20,16 @@ use SplFileInfo;
 use InvalidArgumentException;
 use UnexpectedValueException;
 
+/**
+ * ComparisonTest
+ */
 class ComparisonTest extends TestCase {
 
 	/**
+	 * @param string $equation Formatted equation to verify.
+	 *
+	 * @return void
+	 *
 	 * @dataProvider comparisonProvider
 	 * @runInSeparateProcess
 	 */

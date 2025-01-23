@@ -15,10 +15,18 @@ use Variative\Composite\UnionType;
 use Variative\Special\NullType;
 use Variative\Type;
 
+/**
+ * Nullable Type
+ */
 class NullableType extends UnionType {
 
 	private string $name;
 
+	/**
+	 * Create a new nullable type.
+	 *
+	 * @param Type $type The type to make nullable.
+	 */
 	public function __construct(Type $type) {
 		$this->name = '?' . $type->getName();
 
@@ -28,10 +36,16 @@ class NullableType extends UnionType {
 		);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function getName(): string {
 		return $this->name;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function isAlias(): bool {
 		// this is arguable, it's not an official 'alias' type
 		return true;

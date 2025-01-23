@@ -13,8 +13,14 @@ namespace Variative\ReturnOnly;
 
 use Variative\Type;
 
+/**
+ * Never Type
+ */
 class NeverType extends ReturnOnlyType {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	protected function diffWith(Type $other): ?int {
 		if ($other instanceof self) {
 			return self::BIVARIANT;
@@ -23,6 +29,9 @@ class NeverType extends ReturnOnlyType {
 		return self::COVARIANT;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	protected function diffFrom(Type $other): ?int {
 		if ($other instanceof self) {
 			return self::BIVARIANT;
@@ -31,6 +40,9 @@ class NeverType extends ReturnOnlyType {
 		return self::CONTRAVARIANT;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function getName(): string {
 		return 'never';
 	}

@@ -16,13 +16,24 @@ use Variative\Compound\ObjectType;
 use Variative\Exception\ComparisonException;
 use Variative\Type;
 
+/**
+ * User-Defined Type
+ */
 class UserDefinedType extends AtomicType {
 	private string $class;
 
+	/**
+	 * Create a new user-defined type.
+	 *
+	 * @param string $class The classname.
+	 */
 	public function __construct(string $class) {
 		$this->class = $class;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	protected function diffWith(Type $other): ?int {
 		if ($other instanceof ObjectType) {
 			return self::COVARIANT;
@@ -75,14 +86,23 @@ class UserDefinedType extends AtomicType {
 		return parent::diffWith($other);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function getName(): string {
 		return $this->class;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function isUserDefined(): bool {
 		return true;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function acceptsValue(mixed $value, bool $strict = true): bool {
 		if (!is_object($value)) {
 			return false;
@@ -91,6 +111,11 @@ class UserDefinedType extends AtomicType {
 		return is_a($value, $this->getClass(), false);
 	}
 
+	/**
+	 * Get the classname of the type.
+	 *
+	 * @return string The classname.
+	 */
 	public function getClass(): string {
 		return $this->class;
 	}

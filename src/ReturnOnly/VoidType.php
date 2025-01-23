@@ -11,8 +11,14 @@ declare(strict_types=1);
 
 namespace Variative\ReturnOnly;
 
+/**
+ * Void Type
+ */
 class VoidType extends ReturnOnlyType {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function getName(): string {
 		return 'void';
 	}
