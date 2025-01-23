@@ -68,7 +68,9 @@ class Parser {
 	 * @throws ParseException
 	 */
 	public static function parse(string $input, Context|array|null $context = null): Type {
-		$context = Context::normalize($context);
+		if (!$context instanceof Context) {
+			$context = Context::create($context);
+		}
 
 		return self::generate(self::tokenize($input), $context);
 	}

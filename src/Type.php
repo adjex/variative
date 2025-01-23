@@ -64,7 +64,9 @@ abstract class Type implements Stringable {
 	 * @throws ParseException
 	 */
 	public static function fromReflector(ReflectionType $reflector, Context|array|null $context = null): self {
-		$context = Context::normalize($context);
+		if (!$context instanceof Context) {
+			$context = Context::create($context);
+		}
 
 		return Parser::parse((string) $reflector, $context);
 	}
@@ -78,7 +80,9 @@ abstract class Type implements Stringable {
 	 * @throws ParseException
 	 */
 	public static function fromString(string $string, Context|array|null $context = null): self {
-		$context = Context::normalize($context);
+		if (!$context instanceof Context) {
+			$context = Context::create($context);
+		}
 
 		return Parser::parse($string, $context);
 	}
@@ -92,7 +96,9 @@ abstract class Type implements Stringable {
 	 * @throws ParseException
 	 */
 	public static function fromValue(mixed $value, Context|array|null $context = null): self {
-		$context = Context::normalize($context);
+		if (!$context instanceof Context) {
+			$context = Context::create($context);
+		}
 
 		return Parser::parse(gettype($value), $context);
 	}
@@ -103,7 +109,9 @@ abstract class Type implements Stringable {
 	 * @return self
 	 */
 	public static function default(Context|array|null $context = null): self {
-		$context = Context::normalize($context);
+		if (!$context instanceof Context) {
+			$context = Context::create($context);
+		}
 
 		if ($context->isReturn()) {
 			return new DefaultReturnType();
