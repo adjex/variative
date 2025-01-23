@@ -41,6 +41,13 @@
 	<!-- Check for duplicated class names -->
 	<rule ref="Generic.Classes.DuplicateClassName" />
 
+	<!-- All PHP files MUST declare strict_types=1 -->
+	<rule ref="SlevomatCodingStandard.TypeHints.DeclareStrictTypes">
+		<properties>
+			<property name="spacesCountAroundEqualsSign" value="0" />
+		</properties>
+	</rule>
+
 	<file>src/</file>
 	<file>test/</file>
 </ruleset>
