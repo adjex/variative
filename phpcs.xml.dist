@@ -62,6 +62,7 @@
 	<!-- All functions declared public or protected MUST be have a docblock -->
 	<rule ref="Squiz.Commenting.FunctionComment">
 		<exclude name="Squiz.Commenting.FunctionComment.IncorrectTypeHint" />
+		<exclude name="Squiz.Commenting.FunctionComment.InvalidNoReturn" />
 		<properties>
 			<property name="minimumVisibility" value="protected" />
 			<property name="skipIfInheritdoc" value="true" />
