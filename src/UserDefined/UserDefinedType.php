@@ -14,6 +14,7 @@ namespace Variative\UserDefined;
 use Variative\Common\AtomicType;
 use Variative\Compound\ObjectType;
 use Variative\Exception\ComparisonException;
+use Variative\Log;
 use Variative\Type;
 
 /**
@@ -41,7 +42,7 @@ class UserDefinedType extends AtomicType {
 
 		if ($other instanceof UserDefinedType) {
 			if (!$this->classExists()) {
-				self::warning(sprintf(
+				Log::warning(sprintf(
 					'%s: "%s" does not exist',
 					self::class,
 					$this->getClass(),
@@ -54,7 +55,7 @@ class UserDefinedType extends AtomicType {
 			}
 
 			if (!$other->classExists()) {
-				self::warning(sprintf(
+				Log::warning(sprintf(
 					'%s: "%s" does not exist',
 					self::class,
 					$other->getClass(),

@@ -15,12 +15,8 @@ use Variative\Alias\DefaultReturnType;
 use Variative\Alias\DefaultType;
 use Variative\Exception\ComparisonException;
 use Variative\Exception\ParseException;
-use Psr\Log\InvalidArgumentException as PsrInvalidArgumentException;
-use Psr\Log\LoggerInterface;
-use Psr\Log\LogLevel;
 use ReflectionType;
 use Stringable;
-use WeakMap;
 
 /**
  * Abstract Type
@@ -28,9 +24,6 @@ use WeakMap;
  * @phpstan-import-type ContextArray from Context
  */
 abstract class Type implements Stringable {
-
-	/** @var WeakMap<LoggerInterface, bool> $loggers */
-	private static WeakMap $loggers;
 
 	protected const COVARIANT     = -1;
 	protected const CONTRAVARIANT = 1;
@@ -130,69 +123,69 @@ abstract class Type implements Stringable {
 	final public static function compare(Type $left, Type $right): ?int {
 		$debug = [];
 
-		self::debug(sprintf(
+		Log::debug(sprintf(
 			'compare "%s" to "%s"',
 			$left->getName(),
 			$right->getName(),
 		));
 
-		self::info(sprintf(
+		Log::info(sprintf(
 			'"%s"->diffWith("%s")',
 			$left->getName(),
 			$right->getName(),
 		));
 		try {
 			$result = $left->diffWith($right);
-			self::debug('Matched, ' . self::diffToString($result));
+			Log::debug('Matched, ' . self::diffToString($result));
 			return self::normalDiff($result);
 		} catch (ComparisonException $exception) {
 			// ignore
-			self::debug('Unmatched, skipping...');
+			Log::debug('Unmatched, skipping...');
 		}
 
-		self::info(sprintf(
+		Log::info(sprintf(
 			'"%s"->diffFrom("%s")',
 			$left->getName(),
 			$right->getName(),
 		));
 		try {
 			$result = $left->diffFrom($right);
-			self::debug('Matched, ' . self::diffToString($result));
+			Log::debug('Matched, ' . self::diffToString($result));
 			return self::invertDiff($result);
 		} catch (ComparisonException $exception) {
 			// ignore
-			self::debug('Unmatched, skipping...');
+			Log::debug('Unmatched, skipping...');
 		}
 
-		self::info(sprintf(
+		Log::info(sprintf(
 			'"%s"->diffWith("%s")',
 			$right->getName(),
 			$left->getName(),
 		));
 		try {
 			$result = $right->diffWith($left);
-			self::debug('Matched, ' . self::diffToString($result));
+			Log::debug('Matched, ' . self::diffToString($result));
 			return self::invertDiff($result);
 		} catch (ComparisonException $exception) {
 			// ignore
-			self::debug('Unmatched, skipping...');
+			Log::debug('Unmatched, skipping...');
 		}
 
-		self::info(sprintf(
+		Log::info(sprintf(
 			'"%s"->diffFrom("%s")',
 			$right->getName(),
 			$left->getName(),
 		));
 		try {
 			$result = $right->diffFrom($left);
-			self::debug('Matched, ' . self::diffToString($result));
+			Log::debug('Matched, ' . self::diffToString($result));
 			return self::normalDiff($result);
 		} catch (ComparisonException $exception) {
 			// ignore
-			self::debug('Unmatched, skipping...');
+			Log::debug('Unmatched, skipping...');
 		}
 
-		self::info('No matching rules found, returning invariant...');
+		Log::info('No matching rules found, returning invariant...');
 		return self::INVARIANT;
 	}
 
@@ -242,153 +235,6 @@ abstract class Type implements Stringable {
 		}
 
 		return 'bivariant';
-	}
-
-	/**
-	 * Attach a logger.
-	 *
-	 * @param LoggerInterface $logger The logger to attach.
-	 *
-	 * @return void
-	 */
-	final public static function attachLogger(LoggerInterface $logger): void {
-		if (!isset(self::$loggers)) {
-			self::$loggers = new WeakMap();
-		}
-
-		self::$loggers[$logger] = true;
-	}
-
-	/**
-	 * Detach a logger.
-	 *
-	 * @param LoggerInterface $logger The logger to detach.
-	 *
-	 * @return void
-	 */
-	final public static function detachLogger(LoggerInterface $logger): void {
-		if (!isset(self::$loggers)) {
-			return;
-		}
-
-		unset(self::$loggers[$logger]);
-	}
-
-	/**
-	 * Log an emergency event.
-	 *
-	 * @param string|Stringable $message The event message.
-	 * @param mixed[]           $context The event context.
-	 *
-	 * @return void
-	 */
-	final protected static function emergency(string|Stringable $message, array $context = []): void {
-		self::log(LogLevel::EMERGENCY, $message, $context);
-	}
-
-	/**
-	 * Log an alert event.
-	 *
-	 * @param string|Stringable $message The event message.
-	 * @param mixed[]           $context The event context.
-	 *
-	 * @return void
-	 */
-	final protected static function alert(string|Stringable $message, array $context = []): void {
-		self::log(LogLevel::ALERT, $message, $context);
-	}
-
-	/**
-	 * Log a critical event.
-	 *
-	 * @param string|Stringable $message The event message.
-	 * @param mixed[]           $context The event context.
-	 *
-	 * @return void
-	 */
-	final protected static function critical(string|Stringable $message, array $context = []): void {
-		self::log(LogLevel::CRITICAL, $message, $context);
-	}
-
-	/**
-	 * Log an error event.
-	 *
-	 * @param string|Stringable $message The event message.
-	 * @param mixed[]           $context The event context.
-	 *
-	 * @return void
-	 */
-	final protected static function error(string|Stringable $message, array $context = []): void {
-		self::log(LogLevel::ERROR, $message, $context);
-	}
-
-	/**
-	 * Log a warning event.
-	 *
-	 * @param string|Stringable $message The event message.
-	 * @param mixed[]           $context The event context.
-	 *
-	 * @return void
-	 */
-	final protected static function warning(string|Stringable $message, array $context = []): void {
-		self::log(LogLevel::WARNING, $message, $context);
-	}
-
-	/**
-	 * Log a notice event.
-	 *
-	 * @param string|Stringable $message The event message.
-	 * @param mixed[]           $context The event context.
-	 *
-	 * @return void
-	 */
-	final protected static function notice(string|Stringable $message, array $context = []): void {
-		self::log(LogLevel::NOTICE, $message, $context);
-	}
-
-	/**
-	 * Log an info event.
-	 *
-	 * @param string|Stringable $message The event message.
-	 * @param mixed[]           $context The event context.
-	 *
-	 * @return void
-	 */
-	final protected static function info(string|Stringable $message, array $context = []): void {
-		self::log(LogLevel::INFO, $message, $context);
-	}
-
-	/**
-	 * Log a debug event.
-	 *
-	 * @param string|Stringable $message The event message.
-	 * @param mixed[]           $context The event context.
-	 *
-	 * @return void
-	 */
-	final protected static function debug(string|Stringable $message, array $context = []): void {
-		self::log(LogLevel::DEBUG, $message, $context);
-	}
-
-	/**
-	 * @param string            $level
-	 * @param string|Stringable $message
-	 * @param mixed[]           $context
-	 *
-	 * @return void
-	 */
-	private static function log(string $level, string|Stringable $message, array $context = []): void {
-		if (!isset(self::$loggers)) {
-			return;
-		}
-
-		foreach (self::$loggers as $logger => $valid) {
-			try {
-				$logger->log($level, $message, $context);
-			} catch (PsrInvalidArgumentException $exception) {
-				// impossible, only called with valid log level constants
-			}
-		}
 	}
 
 	/**
@@ -505,7 +351,13 @@ abstract class Type implements Stringable {
 	 *
 	 * @throws ComparisonException If unable to compare types.
 	 */
-	abstract protected function diffWith(self $other): ?int;
+	protected function diffWith(Type $other): ?int {
+		throw new ComparisonException(sprintf(
+			'Logic does not exist for calculating the difference of %s with %s.',
+			$this::class,
+			$other::class,
+		));
+	}
 
 	/**
 	 * Calculate difference FROM another type.
@@ -519,7 +371,14 @@ abstract class Type implements Stringable {
 	 *
 	 * @throws ComparisonException If unable to compare types.
 	 */
-	abstract protected function diffFrom(self $other): ?int;
+	protected function diffFrom(Type $other): ?int {
+		throw new ComparisonException(sprintf(
+			'Logic does not exist for calculating the difference of %s from %s.',
+			$this::class,
+			$other::class,
+		));
+	}
+
 
 	/**
 	 * Compare type to another type.
@@ -606,5 +465,7 @@ abstract class Type implements Stringable {
 	/**
 	 * {@inheritDoc}
 	 */
-	abstract public function __toString(): string;
+	final public function __toString(): string {
+		return $this->getName();
+	}
 }

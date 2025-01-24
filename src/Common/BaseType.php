@@ -24,28 +24,6 @@ abstract class BaseType extends Type {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function diffWith(Type $other): ?int {
-		throw new ComparisonException(sprintf(
-			'Logic does not exist for calculating the difference of %s with %s.',
-			$this::class,
-			$other::class,
-		));
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function diffFrom(Type $other): ?int {
-		throw new ComparisonException(sprintf(
-			'Logic does not exist for calculating the difference of %s from %s.',
-			$this::class,
-			$other::class,
-		));
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
 	public function isBuiltIn(): bool {
 		return false;
 	}
@@ -125,12 +103,5 @@ abstract class BaseType extends Type {
 	 */
 	public function isComposite(): bool {
 		return false;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public function __toString(): string {
-		return $this->getName();
 	}
 }

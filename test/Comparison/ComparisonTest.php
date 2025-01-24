@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace Variative\Test\Comparison;
 
+use Variative\Log;
 use Variative\Type;
 use Variative\Test\TestCase;
 use FilesystemIterator;
@@ -157,9 +158,9 @@ class ComparisonTest extends TestCase {
 		}
 
 		$withLogger = $this->logger($withMessages);
-		Type::attachLogger($withLogger);
+		Log::attach($withLogger);
 		$withResult = Type::compare($left, $right);
-		Type::detachLogger($withLogger);
+		Log::detach($withLogger);
 
 		$withVariation = match (true) {
 			is_null($withResult) => 'invariant',
@@ -169,9 +170,9 @@ class ComparisonTest extends TestCase {
 		};
 
 		$fromLogger = $this->logger($fromMessages);
-		Type::attachLogger($fromLogger);
+		Log::attach($fromLogger);
 		$fromResult = Type::compare($right, $left);
-		Type::detachLogger($fromLogger);
+		Log::detach($fromLogger);
 
 		$fromVariation = match (true) {
 			is_null($fromResult) => 'invariant',
