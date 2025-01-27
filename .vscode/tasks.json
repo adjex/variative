@@ -47,7 +47,7 @@
 			]
 		},
 		{
-			"label": "Unit Tests",
+			"label": "Unit Test",
 			"group": "test",
 			"type": "composer",
 			"command": "run-script",

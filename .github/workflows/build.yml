@@ -6,7 +6,7 @@ on:
 jobs:
   lint:
     runs-on: ubuntu-latest
-    name: Coding Standards
+    name: Check Syntax
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -17,7 +17,7 @@ jobs:
           tools: composer:v2
       - name: Install Dependencies
         run: composer install --no-interaction
-      - name: Run Codesniffer
+      - name: Run Script
         run: composer check
   analyze:
     runs-on: ubuntu-latest
@@ -32,11 +32,11 @@ jobs:
           tools: composer:v2
       - name: Install Dependencies
         run: composer install --no-interaction
-      - name: Run PHPStan
+      - name: Run Script
         run: composer analyze -- --error-format=github
   compat:
     runs-on: ubuntu-latest
-    name: Compatibility Check
+    name: Verify Compatibility
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -47,7 +47,7 @@ jobs:
           tools: composer:v2
       - name: Install Dependencies
         run: composer install --no-interaction
-      - name: Run Phan
+      - name: Run Script
         run: composer compat
   test:
     runs-on: ubuntu-latest
@@ -65,6 +65,6 @@ jobs:
           tools: composer:v2
       - name: Install Dependencies
         run: composer install --no-interaction
-      - name: Run PHPUnit
+      - name: Run Script
         run: composer test
 
