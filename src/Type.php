@@ -20,7 +20,7 @@ use Variative\Exception\ParseException;
 
 /**
  * Base type class. All types must extend this class.
- * 
+ *
  * @phpstan-import-type ContextArray from Context
  */
 abstract class Type implements Stringable {
