@@ -14,9 +14,6 @@ namespace Variative\Composite;
 use Variative\Common\AtomicType;
 use Variative\Type;
 
-/**
- * Negative Type.
- */
 class NegativeType extends CompositeType {
 	protected const SPLICE = '';
 	protected const PREFIX = '!';

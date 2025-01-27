@@ -17,9 +17,6 @@ use Variative\Exception\ComparisonException;
 use Variative\Log;
 use Variative\Type;
 
-/**
- * User-Defined Type.
- */
 class UserDefinedType extends AtomicType {
 	private string $class;
 

@@ -14,7 +14,7 @@ namespace Variative\Scalar;
 use Variative\Common\BuiltInType;
 
 /**
- * Abstract Scalar Type.
+ * Base class for scalar types.
  */
 abstract class ScalarType extends BuiltInType {
 	public function isScalar(): bool {

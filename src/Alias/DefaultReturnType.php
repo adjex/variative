@@ -15,7 +15,7 @@ use Variative\Composite\UnionType;
 use Variative\ReturnOnly\VoidType;
 
 /**
- * Default Return Type.
+ * Represents a default return type (alias of 'mixed|void').
  */
 class DefaultReturnType extends UnionType {
 	/**

@@ -14,7 +14,7 @@ namespace Variative\ReturnOnly;
 use Variative\Special\SpecialType;
 
 /**
- * Abstract Return-Only Type.
+ * Base class for return-only types.
  */
 abstract class ReturnOnlyType extends SpecialType {
 	public function isReturnOnly(): bool {

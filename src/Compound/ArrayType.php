@@ -11,9 +11,6 @@ declare(strict_types=1);
 
 namespace Variative\Compound;
 
-/**
- * Array Type.
- */
 class ArrayType extends CompoundType {
 	public function getName(): string {
 		return 'array';

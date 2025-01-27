@@ -11,9 +11,6 @@ declare(strict_types=1);
 
 namespace Variative\Special;
 
-/**
- * Null Type.
- */
 class NullType extends SpecialType {
 	public function getName(): string {
 		return 'null';

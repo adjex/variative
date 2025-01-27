@@ -18,8 +18,6 @@ use Stringable;
 use WeakMap;
 
 /**
- * Log.
- *
  * Used for debugging type resolution.
  */
 final class Log {

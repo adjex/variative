@@ -14,7 +14,7 @@ namespace Variative\Compound;
 use Variative\Common\BuiltInType;
 
 /**
- * Abstract Compound Type.
+ * Base class for compound types.
  */
 abstract class CompoundType extends BuiltInType {
 	public function isCompound(): bool {

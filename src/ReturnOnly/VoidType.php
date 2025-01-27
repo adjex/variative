@@ -11,9 +11,6 @@ declare(strict_types=1);
 
 namespace Variative\ReturnOnly;
 
-/**
- * Void Type.
- */
 class VoidType extends ReturnOnlyType {
 	public function getName(): string {
 		return 'void';

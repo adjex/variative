@@ -12,8 +12,6 @@ declare(strict_types=1);
 namespace Variative;
 
 /**
- * Context.
- *
  * @phpstan-type ContextArray array{
  *     self?:   class-string,
  *     static?: class-string,

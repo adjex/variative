@@ -14,7 +14,7 @@ namespace Variative\Special;
 use Variative\Common\BuiltInType;
 
 /**
- * Abstract Special Type.
+ * Base class for special types.
  */
 abstract class SpecialType extends BuiltInType {
 	public function isSpecial(): bool {

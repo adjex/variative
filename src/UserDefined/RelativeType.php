@@ -11,9 +11,6 @@ declare(strict_types=1);
 
 namespace Variative\UserDefined;
 
-/**
- * Relative Type.
- */
 class RelativeType extends UserDefinedType {
 	private string $name;
 

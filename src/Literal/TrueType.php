@@ -11,9 +11,6 @@ declare(strict_types=1);
 
 namespace Variative\Literal;
 
-/**
- * True Type.
- */
 class TrueType extends LiteralType {
 	public function getName(): string {
 		return 'true';

@@ -16,7 +16,7 @@ use Variative\Scalar\ScalarType;
 use Variative\Type;
 
 /**
- * Abstract Literal Type.
+ * Base class for literal (value) types.
  */
 abstract class LiteralType extends BuiltInType {
 	public function isLiteral(): bool {

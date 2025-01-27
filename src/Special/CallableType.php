@@ -11,9 +11,6 @@ declare(strict_types=1);
 
 namespace Variative\Special;
 
-/**
- * Callable Type.
- */
 class CallableType extends SpecialType {
 	public function getName(): string {
 		return 'callable';

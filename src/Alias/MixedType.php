@@ -23,7 +23,7 @@ use Variative\Special\NullType;
 use Variative\Special\ResourceType;
 
 /**
- * Mixed Type.
+ * Represents a 'mixed' type (alias of 'object|resource|array|string|float|int|bool|null|callable').
  */
 class MixedType extends UnionType {
 	/**

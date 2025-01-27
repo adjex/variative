@@ -11,9 +11,6 @@ declare(strict_types=1);
 
 namespace Variative\Compound;
 
-/**
- * Object Type.
- */
 class ObjectType extends CompoundType {
 	public function getName(): string {
 		return 'object';

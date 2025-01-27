@@ -19,8 +19,8 @@ use Variative\Exception\ComparisonException;
 use Variative\Exception\ParseException;
 
 /**
- * Abstract Type.
- *
+ * Base type class. All types must extend this class.
+ * 
  * @phpstan-import-type ContextArray from Context
  */
 abstract class Type implements Stringable {
@@ -209,7 +209,7 @@ abstract class Type implements Stringable {
 	abstract public function getName(): string;
 
 	/**
-	 * Check if type is a built-in.
+	 * Check if type is built-in.
 	 *
 	 * @return bool true if type is built-in
 	 */
@@ -223,7 +223,7 @@ abstract class Type implements Stringable {
 	abstract public function isScalar(): bool;
 
 	/**
-	 * Check if type is compond (array, object, callable).
+	 * Check if type is compound (array, object, callable).
 	 *
 	 * @return bool true if type is compound
 	 */
@@ -385,7 +385,7 @@ abstract class Type implements Stringable {
 	}
 
 	/**
-	 * Calculate differene WITH another type.
+	 * Calculate difference WITH another type.
 	 *
 	 * @param self $other the type to compare with
 	 *
@@ -410,7 +410,7 @@ abstract class Type implements Stringable {
 	 * @param self $other the type to compare from
 	 *
 	 * @return ?int Less than zero if $other is covariant to $this.
-	 *              Greater than zero if $other is contravariant to $other.
+	 *              Greater than zero if $other is contravariant to $this.
 	 *              Zero if types are bivariant to each other.
 	 *              Null if types are invariant to each other.
 	 *

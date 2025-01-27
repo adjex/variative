@@ -14,7 +14,7 @@ namespace Variative\Common;
 use Variative\Type;
 
 /**
- * Abstract Built-In Type.
+ * Base class for all atomic types, primarily used to type check against.
  */
 abstract class BuiltInType extends AtomicType {
 	public function isBuiltIn(): bool {

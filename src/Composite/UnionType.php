@@ -14,9 +14,6 @@ namespace Variative\Composite;
 use Variative\Common\AtomicType;
 use Variative\Type;
 
-/**
- * Union Type.
- */
 class UnionType extends CompositeType {
 	protected const SPLICE = '|';
 	protected const PREFIX = '';

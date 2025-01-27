@@ -11,9 +11,6 @@ declare(strict_types=1);
 
 namespace Variative\Scalar;
 
-/**
- * Boolean Type.
- */
 class BooleanType extends ScalarType {
 	public function getName(): string {
 		return 'bool';

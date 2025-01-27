@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace Variative\Alias;
 
 /**
- * Default Type.
+ * Represents a default type (alias of 'mixed').
  */
 class DefaultType extends MixedType {
 	public function getName(): string {

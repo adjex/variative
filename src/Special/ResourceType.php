@@ -11,9 +11,6 @@ declare(strict_types=1);
 
 namespace Variative\Special;
 
-/**
- * Resource Type.
- */
 class ResourceType extends SpecialType {
 	public function getName(): string {
 		return 'resource';

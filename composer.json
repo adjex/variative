@@ -39,7 +39,7 @@
 		"analyze": "phpstan analyse -v",
 		"compat": "phpcs -ps --colors",
 		"test": "phpunit",
-		"check": "php-cs-fixer check --allow-risky yes",
-		"clean": "php-cs-fixer fix --allow-risky yes"
+		"check": "php-cs-fixer check --allow-risky=yes --verbose",
+		"clean": "php-cs-fixer fix --allow-risky=yes"
 	}
 }

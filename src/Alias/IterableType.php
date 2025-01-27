@@ -17,7 +17,7 @@ use Variative\Compound\ArrayType;
 use Variative\UserDefined\UserDefinedType;
 
 /**
- * Iterable Type.
+ * Represents an 'iterable' type (alias of 'array|Traversable').
  */
 class IterableType extends UnionType {
 	/**

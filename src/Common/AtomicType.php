@@ -12,6 +12,6 @@ declare(strict_types=1);
 namespace Variative\Common;
 
 /**
- * Abstract Atomic Type.
+ * Base class for all atomic types, primarily used to type check against.
  */
 abstract class AtomicType extends BaseType {}

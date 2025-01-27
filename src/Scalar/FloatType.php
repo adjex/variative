@@ -11,9 +11,6 @@ declare(strict_types=1);
 
 namespace Variative\Scalar;
 
-/**
- * Float Type.
- */
 class FloatType extends ScalarType {
 	public function getName(): string {
 		return 'float';

@@ -15,7 +15,7 @@ use Variative\Common\BaseType;
 use Variative\Type;
 
 /**
- * Abstract Composite Type.
+ * Base class for composite types.
  */
 abstract class CompositeType extends BaseType {
 	protected const SPLICE = '';

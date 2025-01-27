@@ -11,9 +11,6 @@ declare(strict_types=1);
 
 namespace Variative\Literal;
 
-/**
- * False Type.
- */
 class FalseType extends LiteralType {
 	public function getName(): string {
 		return 'false';

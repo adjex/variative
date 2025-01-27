@@ -16,7 +16,7 @@ use Variative\Special\NullType;
 use Variative\Type;
 
 /**
- * Nullable Type.
+ * Represents a nullable type, essentially a union of 'null' with another type.
  */
 class NullableType extends UnionType {
 	private string $name;

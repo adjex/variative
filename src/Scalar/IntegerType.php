@@ -11,9 +11,6 @@ declare(strict_types=1);
 
 namespace Variative\Scalar;
 
-/**
- * Integer Type.
- */
 class IntegerType extends ScalarType {
 	public function getName(): string {
 		return 'int';

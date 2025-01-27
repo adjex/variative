@@ -13,9 +13,6 @@ namespace Variative\ReturnOnly;
 
 use Variative\Type;
 
-/**
- * Never Type.
- */
 class NeverType extends ReturnOnlyType {
 	public function getName(): string {
 		return 'never';

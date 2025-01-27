@@ -13,9 +13,6 @@ namespace Variative\Scalar;
 
 use Stringable;
 
-/**
- * String Type.
- */
 class StringType extends ScalarType {
 	public function getName(): string {
 		return 'string';
