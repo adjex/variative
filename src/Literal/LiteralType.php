@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of Variative.
  *
  * For the full copyright and license information, please view the LICENSE
@@ -16,13 +16,28 @@ use Variative\Scalar\ScalarType;
 use Variative\Type;
 
 /**
- * Abstract Literal Type
+ * Abstract Literal Type.
  */
 abstract class LiteralType extends BuiltInType {
+	public function isLiteral(): bool {
+		return true;
+	}
 
 	/**
-	 * {@inheritDoc}
+	 * Get the literal value.
+	 *
+	 * @return mixed the value
 	 */
+	abstract public function getValue(): mixed;
+
+	public function acceptsValue(mixed $value, bool $strict = true): bool {
+		if ($strict) {
+			return $value === $this->getValue();
+		}
+
+		return $value == $this->getValue();
+	}
+
 	protected function diffWith(Type $other): ?int {
 		if ($other instanceof LiteralType) {
 			if ($this->getValue() === $other->getValue()) {
@@ -41,30 +56,5 @@ abstract class LiteralType extends BuiltInType {
 		}
 
 		return parent::diffWith($other);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public function isLiteral(): bool {
-		return true;
-	}
-
-	/**
-	 * Get the literal value.
-	 *
-	 * @return mixed The value.
-	 */
-	abstract public function getValue(): mixed;
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public function acceptsValue(mixed $value, bool $strict = true): bool {
-		if ($strict) {
-			return ($value === $this->getValue());
-		} else {
-			return ($value == $this->getValue());
-		}
 	}
 }

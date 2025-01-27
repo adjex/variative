@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of Variative.
  *
  * For the full copyright and license information, please view the LICENSE
@@ -15,10 +15,9 @@ use Variative\Composite\UnionType;
 use Variative\ReturnOnly\VoidType;
 
 /**
- * Default Return Type
+ * Default Return Type.
  */
 class DefaultReturnType extends UnionType {
-
 	/**
 	 * Create a new default return type.
 	 */
@@ -29,16 +28,10 @@ class DefaultReturnType extends UnionType {
 		);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	public function getName(): string {
 		return '[mixed|void]';
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	public function isAlias(): bool {
 		// this is arguable, it's not an official 'alias' type
 		return true;

@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of Variative.
  *
  * For the full copyright and license information, please view the LICENSE
@@ -12,20 +12,17 @@ declare(strict_types=1);
 namespace Variative\Test;
 
 use PHPUnit\Framework\TestCase as BaseTestCase;
+use Psr\Log\AbstractLogger;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
-use Psr\Log\AbstractLogger;
 use Stringable;
 
 /**
- * Abstract Test Case
+ * Abstract Test Case.
  */
 abstract class TestCase extends BaseTestCase {
-
 	/**
 	 * Mark test as incomplete.
-	 *
-	 * @return void
 	 */
 	protected function toDo(): void {
 		$caller = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[1];
@@ -41,7 +38,7 @@ abstract class TestCase extends BaseTestCase {
 	/**
 	 * Check for verbose mode.
 	 *
-	 * @return boolean True if verbose flag is set.
+	 * @return bool true if verbose flag is set
 	 */
 	protected function isVerbose(): bool {
 		if (self::isDebug()) {
@@ -58,7 +55,7 @@ abstract class TestCase extends BaseTestCase {
 	/**
 	 * Check for debug mode.
 	 *
-	 * @return boolean True if debug flag is set.
+	 * @return bool true if debug flag is set
 	 */
 	protected function isDebug(): bool {
 		if (in_array('--debug', $_SERVER['argv'], true)) {
@@ -71,25 +68,21 @@ abstract class TestCase extends BaseTestCase {
 	/**
 	 * Create a simple logger.
 	 *
-	 * @param string[]|null $messages Optional reference to an array to store messages in.
-	 * @param string        $level    Log level (from LogLevel).
-	 *
-	 * @return LoggerInterface
+	 * @param string[]|null $messages optional reference to an array to store messages in
+	 * @param string        $level    log level (from LogLevel)
 	 */
 	protected function logger(?array &$messages = null, string $level = LogLevel::DEBUG): LoggerInterface {
-		return new class ($messages, $level) extends AbstractLogger {
-
-			/** @var string[] $messages */
+		return new class($messages, $level) extends AbstractLogger {
+			/** @var string[] */
 			private array $messages;
 
-			/** @var int $level */
 			private int $level;
 
 			/**
 			 * Create a new logger.
 			 *
-			 * @param string[]|null $messages Array reference to store message in.
-			 * @param string        $level    Log level.
+			 * @param string[]|null $messages array reference to store message in
+			 * @param string        $level    log level
 			 */
 			public function __construct(?array &$messages, string $level = LogLevel::DEBUG) {
 				if (is_null($messages)) {
@@ -108,9 +101,6 @@ abstract class TestCase extends BaseTestCase {
 				return $this->messages;
 			}
 
-			/**
-			 * {@inheritDoc}
-			 */
 			public function log(mixed $level, string|Stringable $message, array $context = []): void {
 				if (!is_string($level)) {
 					return;

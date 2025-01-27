@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of Variative.
  *
  * For the full copyright and license information, please view the LICENSE
@@ -11,16 +11,15 @@ declare(strict_types=1);
 
 namespace Variative\Alias;
 
+use Traversable;
 use Variative\Composite\UnionType;
 use Variative\Compound\ArrayType;
 use Variative\UserDefined\UserDefinedType;
-use Traversable;
 
 /**
- * Iterable Type
+ * Iterable Type.
  */
 class IterableType extends UnionType {
-
 	/**
 	 * Create a new iterable type.
 	 */
@@ -31,16 +30,10 @@ class IterableType extends UnionType {
 		);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	public function getName(): string {
 		return 'iterable';
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	public function isAlias(): bool {
 		return true;
 	}

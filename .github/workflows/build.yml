@@ -18,7 +18,7 @@ jobs:
       - name: Install Dependencies
         run: composer install --no-interaction
       - name: Run Codesniffer
-        run: composer lint
+        run: composer check
   analyze:
     runs-on: ubuntu-latest
     name: Static Analysis
@@ -48,7 +48,7 @@ jobs:
       - name: Install Dependencies
         run: composer install --no-interaction
       - name: Run Phan
-        run: composer compat -- --output-mode checkstyle
+        run: composer compat
   test:
     runs-on: ubuntu-latest
     strategy:

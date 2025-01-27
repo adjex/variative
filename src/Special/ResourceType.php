@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of Variative.
  *
  * For the full copyright and license information, please view the LICENSE
@@ -12,20 +12,13 @@ declare(strict_types=1);
 namespace Variative\Special;
 
 /**
- * Resource Type
+ * Resource Type.
  */
 class ResourceType extends SpecialType {
-
-	/**
-	 * {@inheritDoc}
-	 */
 	public function getName(): string {
 		return 'resource';
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	public function acceptsValue(mixed $value, bool $strict = false): bool {
 		return is_resource($value);
 	}

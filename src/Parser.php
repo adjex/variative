@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of Variative.
  *
  * For the full copyright and license information, please view the LICENSE
@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace Variative;
 
+use Generator;
 use Variative\Alias\IterableType;
 use Variative\Alias\MixedType;
 use Variative\Alias\NullableType;
@@ -33,26 +34,24 @@ use Variative\Special\NullType;
 use Variative\Special\ResourceType;
 use Variative\UserDefined\RelativeType;
 use Variative\UserDefined\UserDefinedType;
-use Generator;
 
 /**
  * @phpstan-import-type ContextArray from Context
  */
 class Parser {
-
 	/**
-	 * @var array<string, string> $tokens
+	 * @var array<string, string>
 	 */
 	private static array $tokens = [
-		'OPEN'         => '\(',
-		'CLOSE'        => '\)',
-		'NULLABLE'     => '\?',
-		'NEGATIVE'     => '\!',
-		'UNION'        => '\|',
+		'OPEN' => '\(',
+		'CLOSE' => '\)',
+		'NULLABLE' => '\?',
+		'NEGATIVE' => '\!',
+		'UNION' => '\|',
 		'INTERSECTION' => '\&',
-		'IDENTIFIER'   => '[a-zA-Z0-9_\\\\-]+',
-		'WHITESPACE'   => '\s',
-		'INVALID'      => '.'
+		'IDENTIFIER' => '[a-zA-Z0-9_\\\-]+',
+		'WHITESPACE' => '\s',
+		'INVALID' => '.',
 	];
 
 	private function __construct() {
@@ -62,12 +61,12 @@ class Parser {
 	/**
 	 * Parse a string type.
 	 *
-	 * @param string                    $input   The string to parse.
-	 * @param Context|ContextArray|null $context The context to parse within.
+	 * @param string                    $input   the string to parse
+	 * @param Context|ContextArray|null $context the context to parse within
 	 *
-	 * @return Type The parsed type.
+	 * @return Type the parsed type
 	 *
-	 * @throws ParseException If unable to parse the provided input.
+	 * @throws ParseException if unable to parse the provided input
 	 */
 	public static function parse(string $input, Context|array|null $context = null): Type {
 		if (!$context instanceof Context) {
@@ -78,8 +77,6 @@ class Parser {
 	}
 
 	/**
-	 * @param string $input
-	 *
 	 * @return Generator<string, string>
 	 */
 	private static function tokenize(string $input): Generator {
@@ -89,16 +86,13 @@ class Parser {
 			if (preg_match($regex, $input, $matches) == 1) {
 				yield $name => $matches[1];
 				yield from self::tokenize($matches[2]);
+
 				break;
 			}
 		}
 	}
 
 	/**
-	 * @param Type ...$types
-	 *
-	 * @return Type
-	 *
 	 * @throws ParseException
 	 */
 	private static function collapse(Type ...$types): Type {
@@ -115,7 +109,6 @@ class Parser {
 
 	/**
 	 * @param Generator<string, string> $stream
-	 * @param Context                   $context
 	 *
 	 * @throws ParseException
 	 */
@@ -158,11 +151,13 @@ class Parser {
 				}
 
 				$depth--;
+
 				return self::collapse(...$types);
 			}
 
 			if ($token == 'NEGATIVE') {
 				$negate = true;
+
 				continue;
 			}
 
@@ -175,6 +170,7 @@ class Parser {
 					));
 				}
 				$operator = $token;
+
 				continue;
 			}
 
@@ -219,12 +215,6 @@ class Parser {
 		return self::collapse(...$types);
 	}
 
-	/**
-	 * @param string  $name
-	 * @param Context $context
-	 *
-	 * @return Type
-	 */
 	private static function createAtomic(string $name, Context $context): Type {
 		switch (strtolower($name)) {
 			case 'bool':
@@ -260,21 +250,24 @@ class Parser {
 			case 'self':
 				if ($context->hasSelfClass()) {
 					return new RelativeType('self', $context->getSelfClass());
-				} else {
-					return new UserDefinedType('self');
 				}
+
+				return new UserDefinedType('self');
+
 			case 'static':
 				if ($context->hasStaticClass()) {
 					return new RelativeType('static', $context->getStaticClass());
-				} else {
-					return new UserDefinedType('static');
 				}
+
+				return new UserDefinedType('static');
+
 			case 'parent':
 				if ($context->hasParentClass()) {
 					return new RelativeType('parent', $context->getParentClass());
-				} else {
-					return new UserDefinedType('parent');
 				}
+
+				return new UserDefinedType('parent');
+
 			default:
 				return new UserDefinedType($name);
 		}

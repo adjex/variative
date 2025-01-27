@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of Variative.
  *
  * For the full copyright and license information, please view the LICENSE
@@ -14,13 +14,9 @@ namespace Variative\Special;
 use Variative\Common\BuiltInType;
 
 /**
- * Abstract Special Type
+ * Abstract Special Type.
  */
 abstract class SpecialType extends BuiltInType {
-
-	/**
-	 * {@inheritDoc}
-	 */
 	public function isSpecial(): bool {
 		return true;
 	}

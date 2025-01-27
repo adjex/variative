@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of Variative.
  *
  * For the full copyright and license information, please view the LICENSE
@@ -18,7 +18,7 @@ use Variative\Log;
 use Variative\Type;
 
 /**
- * User-Defined Type
+ * User-Defined Type.
  */
 class UserDefinedType extends AtomicType {
 	private string $class;
@@ -26,15 +26,37 @@ class UserDefinedType extends AtomicType {
 	/**
 	 * Create a new user-defined type.
 	 *
-	 * @param string $class The classname.
+	 * @param string $class the classname
 	 */
 	public function __construct(string $class) {
 		$this->class = $class;
 	}
 
+	public function getName(): string {
+		return $this->class;
+	}
+
+	public function isUserDefined(): bool {
+		return true;
+	}
+
+	public function acceptsValue(mixed $value, bool $strict = true): bool {
+		if (!is_object($value)) {
+			return false;
+		}
+
+		return is_a($value, $this->getClass(), false);
+	}
+
 	/**
-	 * {@inheritDoc}
+	 * Get the classname of the type.
+	 *
+	 * @return string the classname
 	 */
+	public function getClass(): string {
+		return $this->class;
+	}
+
 	protected function diffWith(Type $other): ?int {
 		if ($other instanceof ObjectType) {
 			return self::COVARIANT;
@@ -60,6 +82,7 @@ class UserDefinedType extends AtomicType {
 					self::class,
 					$other->getClass(),
 				));
+
 				throw new ComparisonException(sprintf(
 					'Class/Interface "%s" does not exist.',
 					$other->getClass(),
@@ -87,40 +110,6 @@ class UserDefinedType extends AtomicType {
 		return parent::diffWith($other);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public function getName(): string {
-		return $this->class;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public function isUserDefined(): bool {
-		return true;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public function acceptsValue(mixed $value, bool $strict = true): bool {
-		if (!is_object($value)) {
-			return false;
-		}
-
-		return is_a($value, $this->getClass(), false);
-	}
-
-	/**
-	 * Get the classname of the type.
-	 *
-	 * @return string The classname.
-	 */
-	public function getClass(): string {
-		return $this->class;
-	}
-
 	private function classExists(): bool {
 		if (class_exists($this->getClass(), true)) {
 			return true;
@@ -130,7 +119,7 @@ class UserDefinedType extends AtomicType {
 			return true;
 		}
 
-		// @phan-suppress-next-line PhanUndeclaredFunction
+		// phpcs:ignore PHPCompatibility.FunctionUse.NewFunctions.enum_existsFound
 		if (function_exists('enum_exists') && enum_exists($this->getClass(), true)) {
 			return true;
 		}

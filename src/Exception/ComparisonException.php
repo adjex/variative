@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of Variative.
  *
  * For the full copyright and license information, please view the LICENSE
@@ -14,8 +14,6 @@ namespace Variative\Exception;
 use RuntimeException;
 
 /**
- * Comparison Exception
+ * Comparison Exception.
  */
-class ComparisonException extends RuntimeException {
-
-}
+class ComparisonException extends RuntimeException {}

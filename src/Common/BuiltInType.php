@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of Variative.
  *
  * For the full copyright and license information, please view the LICENSE
@@ -14,25 +14,18 @@ namespace Variative\Common;
 use Variative\Type;
 
 /**
- * Abstract Built-In Type
+ * Abstract Built-In Type.
  */
 abstract class BuiltInType extends AtomicType {
+	public function isBuiltIn(): bool {
+		return true;
+	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	protected function diffWith(Type $other): ?int {
 		if ($other::class == static::class) {
 			return self::BIVARIANT;
 		}
 
 		return parent::diffWith($other);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public function isBuiltIn(): bool {
-		return true;
 	}
 }

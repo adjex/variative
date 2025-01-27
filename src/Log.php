@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of Variative.
  *
  * For the full copyright and license information, please view the LICENSE
@@ -18,12 +18,12 @@ use Stringable;
 use WeakMap;
 
 /**
- * Log
+ * Log.
  *
  * Used for debugging type resolution.
  */
 final class Log {
-	/** @var WeakMap<LoggerInterface, bool> $loggers */
+	/** @var WeakMap<LoggerInterface, bool> */
 	private static WeakMap $loggers;
 
 	private function __construct() {
@@ -33,9 +33,7 @@ final class Log {
 	/**
 	 * Attach a logger.
 	 *
-	 * @param LoggerInterface $logger The logger to attach.
-	 *
-	 * @return void
+	 * @param LoggerInterface $logger the logger to attach
 	 */
 	public static function attach(LoggerInterface $logger): void {
 		if (!isset(self::$loggers)) {
@@ -48,9 +46,7 @@ final class Log {
 	/**
 	 * Detach a logger.
 	 *
-	 * @param LoggerInterface $logger The logger to detach.
-	 *
-	 * @return void
+	 * @param LoggerInterface $logger the logger to detach
 	 */
 	public static function detach(LoggerInterface $logger): void {
 		if (!isset(self::$loggers)) {
@@ -63,10 +59,8 @@ final class Log {
 	/**
 	 * Log an emergency event.
 	 *
-	 * @param string|Stringable $message The event message.
-	 * @param mixed[]           $context The event context.
-	 *
-	 * @return void
+	 * @param string|Stringable $message the event message
+	 * @param mixed[]           $context the event context
 	 */
 	public static function emergency(string|Stringable $message, array $context = []): void {
 		self::log(LogLevel::EMERGENCY, $message, $context);
@@ -75,10 +69,8 @@ final class Log {
 	/**
 	 * Log an alert event.
 	 *
-	 * @param string|Stringable $message The event message.
-	 * @param mixed[]           $context The event context.
-	 *
-	 * @return void
+	 * @param string|Stringable $message the event message
+	 * @param mixed[]           $context the event context
 	 */
 	public static function alert(string|Stringable $message, array $context = []): void {
 		self::log(LogLevel::ALERT, $message, $context);
@@ -87,10 +79,8 @@ final class Log {
 	/**
 	 * Log a critical event.
 	 *
-	 * @param string|Stringable $message The event message.
-	 * @param mixed[]           $context The event context.
-	 *
-	 * @return void
+	 * @param string|Stringable $message the event message
+	 * @param mixed[]           $context the event context
 	 */
 	public static function critical(string|Stringable $message, array $context = []): void {
 		self::log(LogLevel::CRITICAL, $message, $context);
@@ -99,10 +89,8 @@ final class Log {
 	/**
 	 * Log an error event.
 	 *
-	 * @param string|Stringable $message The event message.
-	 * @param mixed[]           $context The event context.
-	 *
-	 * @return void
+	 * @param string|Stringable $message the event message
+	 * @param mixed[]           $context the event context
 	 */
 	public static function error(string|Stringable $message, array $context = []): void {
 		self::log(LogLevel::ERROR, $message, $context);
@@ -111,10 +99,8 @@ final class Log {
 	/**
 	 * Log a warning event.
 	 *
-	 * @param string|Stringable $message The event message.
-	 * @param mixed[]           $context The event context.
-	 *
-	 * @return void
+	 * @param string|Stringable $message the event message
+	 * @param mixed[]           $context the event context
 	 */
 	public static function warning(string|Stringable $message, array $context = []): void {
 		self::log(LogLevel::WARNING, $message, $context);
@@ -123,10 +109,8 @@ final class Log {
 	/**
 	 * Log a notice event.
 	 *
-	 * @param string|Stringable $message The event message.
-	 * @param mixed[]           $context The event context.
-	 *
-	 * @return void
+	 * @param string|Stringable $message the event message
+	 * @param mixed[]           $context the event context
 	 */
 	public static function notice(string|Stringable $message, array $context = []): void {
 		self::log(LogLevel::NOTICE, $message, $context);
@@ -135,10 +119,8 @@ final class Log {
 	/**
 	 * Log an info event.
 	 *
-	 * @param string|Stringable $message The event message.
-	 * @param mixed[]           $context The event context.
-	 *
-	 * @return void
+	 * @param string|Stringable $message the event message
+	 * @param mixed[]           $context the event context
 	 */
 	public static function info(string|Stringable $message, array $context = []): void {
 		self::log(LogLevel::INFO, $message, $context);
@@ -147,21 +129,15 @@ final class Log {
 	/**
 	 * Log a debug event.
 	 *
-	 * @param string|Stringable $message The event message.
-	 * @param mixed[]           $context The event context.
-	 *
-	 * @return void
+	 * @param string|Stringable $message the event message
+	 * @param mixed[]           $context the event context
 	 */
 	public static function debug(string|Stringable $message, array $context = []): void {
 		self::log(LogLevel::DEBUG, $message, $context);
 	}
 
 	/**
-	 * @param string            $level
-	 * @param string|Stringable $message
-	 * @param mixed[]           $context
-	 *
-	 * @return void
+	 * @param mixed[] $context
 	 */
 	private static function log(string $level, string|Stringable $message, array $context = []): void {
 		if (!isset(self::$loggers)) {

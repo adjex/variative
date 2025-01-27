@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of Variative.
  *
  * For the full copyright and license information, please view the LICENSE
@@ -11,38 +11,37 @@ declare(strict_types=1);
 
 namespace Variative\Test\Comparison;
 
-use Variative\Log;
-use Variative\Type;
-use Variative\Test\TestCase;
 use FilesystemIterator;
+use InvalidArgumentException;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use SplFileInfo;
-use InvalidArgumentException;
 use UnexpectedValueException;
+use Variative\Log;
+use Variative\Test\TestCase;
+use Variative\Type;
 
 /**
- * ComparisonTest
+ * ComparisonTest.
+ *
+ * @internal
+ *
+ * @coversNothing
  */
 class ComparisonTest extends TestCase {
-
 	/**
-	 * @param string $equation Formatted equation to verify.
-	 *
-	 * @return void
+	 * @param string $equation formatted equation to verify
 	 *
 	 * @dataProvider comparisonProvider
+	 *
 	 * @runInSeparateProcess
 	 */
 	public function testComparison(string $equation): void {
-
-
 		$result = preg_match(
 			'/^([^=<>:]*)(==|!=|<=|>=)([^=<>:]*)(?::(.*))?$/',
 			$equation,
 			$matches,
 		);
-
 
 		if ($result <= 0) {
 			self::fail(sprintf(
@@ -76,6 +75,7 @@ class ComparisonTest extends TestCase {
 				$data = json_decode($cond, true);
 				if (is_array($data)) {
 					$test['context'] = $data;
+
 					continue;
 				}
 
@@ -132,8 +132,6 @@ class ComparisonTest extends TestCase {
 			}
 		}
 
-
-
 		$dependencyCode[] = '}';
 		eval(implode("\n", $dependencyCode));
 
@@ -150,11 +148,11 @@ class ComparisonTest extends TestCase {
 		}
 
 		if (is_string($test['left'])) {
-			//self::assertSame($test['left'], $left->getName());
+			// self::assertSame($test['left'], $left->getName());
 		}
 
 		if (is_string($test['right'])) {
-			//self::assertSame($test['right'], $right->getName());
+			// self::assertSame($test['right'], $right->getName());
 		}
 
 		$withLogger = $this->logger($withMessages);
@@ -164,9 +162,9 @@ class ComparisonTest extends TestCase {
 
 		$withVariation = match (true) {
 			is_null($withResult) => 'invariant',
-			$withResult < 0      => 'covariant',
-			$withResult > 0      => 'contravariant',
-			$withResult == 0     => 'bivariant',
+			$withResult < 0 => 'covariant',
+			$withResult > 0 => 'contravariant',
+			$withResult == 0 => 'bivariant',
 		};
 
 		$fromLogger = $this->logger($fromMessages);
@@ -176,9 +174,9 @@ class ComparisonTest extends TestCase {
 
 		$fromVariation = match (true) {
 			is_null($fromResult) => 'invariant',
-			$fromResult < 0      => 'covariant',
-			$fromResult > 0      => 'contravariant',
-			$fromResult == 0     => 'bivariant',
+			$fromResult < 0 => 'covariant',
+			$fromResult > 0 => 'contravariant',
+			$fromResult == 0 => 'bivariant',
 		};
 
 		$withExpectation = match ($test['operator']) {
@@ -207,58 +205,57 @@ class ComparisonTest extends TestCase {
 			$fromDetails = "\n\t" . implode("\n\t", $fromMessages);
 		}
 
-		//$withDetails = '';
-		//if($withExpectation !== $withVariation) {
-			/*
-			$debug = Type::debug($left, $right);
-			foreach($debug as $trace) {
-				$step = [];
-				$step['left'] = sprintf(
-					'"%s" (%s)',
-					$trace['left']->getName(),
-					$trace['left']::class,
-				);
-				$step['right'] = sprintf(
-					'"%s" (%s)',
-					$trace['right']->getName(),
-					$trace['right']::class,
-				);
-				$step['func'] = $trace['func'];
+		// $withDetails = '';
+		// if($withExpectation !== $withVariation) {
+		/*
+		$debug = Type::debug($left, $right);
+		foreach($debug as $trace) {
+			$step = [];
+			$step['left'] = sprintf(
+				'"%s" (%s)',
+				$trace['left']->getName(),
+				$trace['left']::class,
+			);
+			$step['right'] = sprintf(
+				'"%s" (%s)',
+				$trace['right']->getName(),
+				$trace['right']::class,
+			);
+			$step['func'] = $trace['func'];
 
-				if(isset($trace['result'])) {
-					$step['result'] = var_export($trace['result'], true);
-					if(is_null($trace['result'])) {
-						$step['result'] .= ' (invariant)';
-					} elseif($trace['result'] < 0) {
-						$step['result'] .= ' (covariant)';
-					} elseif($trace['result'] > 0) {
-						$step['result'] .= ' (contravariant)';
-					} else {
-						$step['result'] .= ' (bivariant)';
-					}
+			if(isset($trace['result'])) {
+				$step['result'] = var_export($trace['result'], true);
+				if(is_null($trace['result'])) {
+					$step['result'] .= ' (invariant)';
+				} elseif($trace['result'] < 0) {
+					$step['result'] .= ' (covariant)';
+				} elseif($trace['result'] > 0) {
+					$step['result'] .= ' (contravariant)';
+				} else {
+					$step['result'] .= ' (bivariant)';
 				}
-
-				if(isset($trace['error'])) {
-					$step['error'] = sprintf(
-						'%s (%s @ %d)',
-						$trace['error']->getMessage(),
-						$trace['error']->getFile(),
-						$trace['error']->getLine(),
-					);
-				}
-
-				$withDetails .= "\n" . print_r($step, true);
 			}
-			*/
 
+			if(isset($trace['error'])) {
+				$step['error'] = sprintf(
+					'%s (%s @ %d)',
+					$trace['error']->getMessage(),
+					$trace['error']->getFile(),
+					$trace['error']->getLine(),
+				);
+			}
 
-			//$withDetails = "\n" . print_r(Type::debug($left, $right), true);
-		//}
+			$withDetails .= "\n" . print_r($step, true);
+		}
+		*/
 
-		//$fromDetails = '';
-		//if($fromExpectation !== $fromVariation) {
-			//$fromDetails = "\n" . print_r(Type::debug($right, $left), true);
-		//}
+		// $withDetails = "\n" . print_r(Type::debug($left, $right), true);
+		// }
+
+		// $fromDetails = '';
+		// if($fromExpectation !== $fromVariation) {
+		// $fromDetails = "\n" . print_r(Type::debug($right, $left), true);
+		// }
 
 		self::assertSame($withExpectation, $withVariation, sprintf(
 			'Failed asserting that "%s" is %s with "%s".%s',
@@ -275,9 +272,6 @@ class ComparisonTest extends TestCase {
 			(string) $left,
 			$fromDetails,
 		));
-
-
-
 
 		/*
 		$covarExpectation = in_array($test['operator'], ['<=', '=='], true);

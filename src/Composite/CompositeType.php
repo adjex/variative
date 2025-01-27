@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of Variative.
  *
  * For the full copyright and license information, please view the LICENSE
@@ -15,10 +15,9 @@ use Variative\Common\BaseType;
 use Variative\Type;
 
 /**
- * Abstract Composite Type
+ * Abstract Composite Type.
  */
 abstract class CompositeType extends BaseType {
-
 	protected const SPLICE = '';
 	protected const PREFIX = '';
 	protected const SUFFIX = '';
@@ -29,7 +28,7 @@ abstract class CompositeType extends BaseType {
 	/**
 	 * Create a new composite type.
 	 *
-	 * @param Type $type     Main type.
+	 * @param Type $type     main type
 	 * @param Type ...$types Additional types.
 	 */
 	public function __construct(Type $type, Type ...$types) {
@@ -40,14 +39,6 @@ abstract class CompositeType extends BaseType {
 		}
 	}
 
-
-	private function addType(Type $type): void {
-		$this->types[] = $type;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
 	public function isReturnOnly(): bool {
 		foreach ($this->types as $type) {
 			if ($type->isReturnOnly()) {
@@ -58,9 +49,6 @@ abstract class CompositeType extends BaseType {
 		return false;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	public function isComposite(): bool {
 		return true;
 	}
@@ -68,15 +56,12 @@ abstract class CompositeType extends BaseType {
 	/**
 	 * Return all composite subtypes.
 	 *
-	 * @return array<Type> List of subtypes.
+	 * @return array<Type> list of subtypes
 	 */
 	public function getTypes(): array {
 		return $this->types;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	public function getName(): string {
 		$types = [];
 
@@ -89,5 +74,9 @@ abstract class CompositeType extends BaseType {
 		}
 
 		return static::PREFIX . implode(static::SPLICE, $types) . static::SUFFIX;
+	}
+
+	private function addType(Type $type): void {
+		$this->types[] = $type;
 	}
 }

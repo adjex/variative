@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of Variative.
  *
  * For the full copyright and license information, please view the LICENSE
@@ -14,8 +14,6 @@ namespace Variative\Exception;
 use InvalidArgumentException;
 
 /**
- * Parse Exception
+ * Parse Exception.
  */
-class ParseException extends InvalidArgumentException {
-
-}
+class ParseException extends InvalidArgumentException {}

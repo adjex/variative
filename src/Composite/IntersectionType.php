@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of Variative.
  *
  * For the full copyright and license information, please view the LICENSE
@@ -15,17 +15,13 @@ use Variative\Common\AtomicType;
 use Variative\Type;
 
 /**
- * Intersection Type
+ * Intersection Type.
  */
 class IntersectionType extends CompositeType {
-
 	protected const SPLICE = '&';
 	protected const PREFIX = '';
 	protected const SUFFIX = '';
 
-	/**
-	 * {@inheritDoc}
-	 */
 	public function getTypes(): array {
 		$types = [];
 		foreach (parent::getTypes() as $type) {
@@ -41,9 +37,16 @@ class IntersectionType extends CompositeType {
 		return $types;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	public function acceptsValue(mixed $value, bool $strict = true): bool {
+		foreach ($this->getTypes() as $type) {
+			if (!$type->acceptsValue($value, $strict)) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
 	protected function diffWith(Type $other): ?int {
 		if ($other instanceof AtomicType) {
 			// $this is a subtype of $other if ANY of its composite types are subtypes
@@ -51,6 +54,7 @@ class IntersectionType extends CompositeType {
 			foreach ($this->getTypes() as $type) {
 				if ($type->covariantWith($other)) {
 					$covariant = true;
+
 					break;
 				}
 			}
@@ -59,7 +63,8 @@ class IntersectionType extends CompositeType {
 			$contravariant = true;
 			foreach ($this->getTypes() as $type) {
 				if (!$type->contravariantWith($other)) {
-					$contravariant =  false;
+					$contravariant = false;
+
 					break;
 				}
 			}
@@ -89,7 +94,7 @@ class IntersectionType extends CompositeType {
 				}
 			}
 
-			//return self::NONCOMPARABLE;
+			// return self::NONCOMPARABLE;
 		}
 
 		if ($other instanceof self) {
@@ -107,6 +112,7 @@ class IntersectionType extends CompositeType {
 				}
 
 				$covariant = false;
+
 				break;
 			}
 
@@ -122,6 +128,7 @@ class IntersectionType extends CompositeType {
 				}
 
 				$contravariant = false;
+
 				break;
 			}
 
@@ -141,18 +148,5 @@ class IntersectionType extends CompositeType {
 		}
 
 		return parent::diffWith($other);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public function acceptsValue(mixed $value, bool $strict = true): bool {
-		foreach ($this->getTypes() as $type) {
-			if (!$type->acceptsValue($value, $strict)) {
-				return false;
-			}
-		}
-
-		return true;
 	}
 }
